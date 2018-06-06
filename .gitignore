@@ -4,3 +4,7 @@ target/
 
 # https://github.com/github/gitignore/blob/master/Global/OSX.gitignore
 .DS_Store
+
+# IntelliJ
+.idea/
+cb2java.iml

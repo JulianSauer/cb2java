@@ -8,7 +8,7 @@
     <name>cb2java</name>
     <groupId>net.sf.cb2java</groupId>
     <artifactId>cb2java</artifactId>
-    <version>5.3</version>
+    <version>5.4</version>
     <url>https://github.com/devstopfix/cb2java</url>
 
     <description>Library that allows dynamic access to Copybook structures at run-time from a Java application</description>
@@ -33,6 +33,14 @@
             <id>montoyaedu</id>
             <name>H. Eduardo Montoya Sánchez</name>
             <url>https://github.com/montoyaedu</url>
+        </developer>
+        <developer>
+            <id>juliansauer</id>
+            <name>Julian Sauer</name>
+            <url>https://github.com/JulianSauer/</url>
+            <roles>
+                <role>developer</role>
+            </roles>
         </developer>
     </developers>
 
@@ -64,10 +72,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>3.7.0</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -77,7 +85,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
