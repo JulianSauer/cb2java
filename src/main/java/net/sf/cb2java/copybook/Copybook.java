@@ -225,7 +225,7 @@ public class Copybook extends Group implements Settings
                 internal = temp;
             }
             
-            System.arraycopy(bytes, size, internal, size, length);
+            System.arraycopy(bytes, 0, internal, size, length);
             
             size += length;
         }
