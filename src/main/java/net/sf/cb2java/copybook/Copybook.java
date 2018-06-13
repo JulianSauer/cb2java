@@ -18,12 +18,6 @@
  */
 package net.sf.cb2java.copybook;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import net.sf.cb2java.Settings;
 import net.sf.cb2java.Values;
 import net.sf.cb2java.data.GroupData;
@@ -32,6 +26,14 @@ import net.sf.cb2java.types.Element;
 import net.sf.cb2java.types.Group;
 import net.sf.cb2java.types.Numeric;
 import net.sf.cb2java.types.Numeric.Position;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a copybook data definition in memory
@@ -115,16 +117,18 @@ public class Copybook extends Group implements Settings
     {
         return new Record(getName(), (GroupData) parse(data));
     }
-    
+
     public List<Record> parseData(InputStream stream) throws IOException
     {
-        ByteBuffer buffer = new ByteBuffer(stream);        
-        List<Record> list = new ArrayList<Record>();
-        
-        while (buffer.hasNext()) {
-            list.add(new Record(getName(), (GroupData) parse(buffer.getNext())));
+        BufferedInputStream bufferedStream = new BufferedInputStream(stream);
+        List<Record> list = new ArrayList<>();
+
+        int size = getLength();
+        byte[] buffer = new byte[size];
+        while (bufferedStream.read(buffer, 0, size) != -1) {
+            list.add(new Record(getName(), (GroupData) parse(buffer)));
         }
-        
+
         return list;
     }
     
@@ -178,89 +182,5 @@ public class Copybook extends Group implements Settings
     {
         return signPosition;
     }
-    
-    /**
-     * a helper class for buffering the data as it is processed
-     * 
-     * @author James Watson
-     */
-    public class ByteBuffer
-    {
-        // TODO allow strings, length delimiting
-        private int position = 0;
-        private byte[] internal = new byte[1024];
-        private int size = 0;
-        private final InputStream stream;
-        
-        public ByteBuffer(InputStream stream) throws IOException
-        {
-            this.stream = stream;
-        }
-        
-        private boolean getMore()
-        {
-            try {
-                byte[] array = new byte[1024];
-                int read = 0;
-                
-                while ((read = stream.read(array)) >= 0) {
-                    add(array, read);
-                    
-                    if (read >= getLength()) return true;
-                }
-                
-                return read >= getLength();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        
-        public void add(byte[] bytes, int length)
-        {
-            int space = internal.length - size;
-            
-            if (space < bytes.length) {
-                byte[] temp = new byte[Math.min(internal.length * 2, internal.length + bytes.length)];
-                System.arraycopy(internal, 0, temp, 0, size);
-                internal = temp;
-            }
-            
-            System.arraycopy(bytes, 0, internal, size, length);
-            
-            size += length;
-        }
-        
-        public boolean hasNext()
-        {
-            if (!(position < size)) {
-                if (!getMore()) return false;
-            }
-            
-            return true;
-        }
-        
-        private int nextEnd()
-        {
-            if (!hasNext()) return -1;
-            
-            int next = position + getLength();
-            
-            return next > size ? size : next;
-        }
-        
-        public byte[] getNext()
-        {
-            byte[] bytes = new byte[size];
-            
-            int end = nextEnd();
-            
-//            System.out.println("next end: " + end);
-//            System.out.println("position: " + position);
-            
-            System.arraycopy(internal, position, bytes, 0, end - position);
-            position = end;
-            
-            return bytes;
-        }
-    }
+
 }
