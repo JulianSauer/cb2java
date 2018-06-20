@@ -18,6 +18,8 @@
  */
 package net.sf.cb2java.copybook;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import net.sf.cb2java.Settings;
 import net.sf.cb2java.Values;
 import net.sf.cb2java.data.GroupData;
@@ -130,6 +132,15 @@ public class Copybook extends Group implements Settings
         }
 
         return list;
+    }
+
+    public String parseDataToJson(InputStream stream) throws IOException
+    {
+        List<JsonElement> records = new ArrayList<>();
+        for(Record record : parseData(stream)) {
+            records.add(record.toJson());
+        }
+        return new Gson().toJson(records);
     }
     
     /**
