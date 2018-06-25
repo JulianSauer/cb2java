@@ -20,8 +20,6 @@ package net.sf.cb2java.data;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import jdk.nashorn.internal.parser.JSONParser;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

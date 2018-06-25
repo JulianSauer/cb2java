@@ -21,6 +21,7 @@ package net.sf.cb2java.data;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+
 import net.sf.cb2java.types.Element;
 
 /**
@@ -135,7 +136,18 @@ public abstract class Data
     {
         getDefinition().validate(data);
     }
-    
+
+    public RecordVertex toPOJOTree() {
+        RecordVertex record = new RecordVertex();
+        record.setName(getName());
+        if (getChildren().size() == 0)
+          record.setValue(getValue());
+        for(Data child : getChildren()) {
+            record.addChild(child.toPOJOTree());
+        }
+        return record;
+    }
+
     /**
      * Convert the copybook data types into standard Java structures
      * and objects.
