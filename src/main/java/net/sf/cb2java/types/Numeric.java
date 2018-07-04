@@ -49,6 +49,9 @@ public abstract class Numeric extends Leaf
         this.length = getLength(picture);
         this.decimalPlaces = getScale(picture, length);
         this.signed = isSigned(picture);
+
+        type = Type.NUMERIC;
+        type.setLength(length);
     }
     
     protected Numeric(String name, int level, int occurs, final int length, final int decimalPlaces, final boolean signed)
@@ -58,6 +61,9 @@ public abstract class Numeric extends Leaf
         this.length = length;
         this.decimalPlaces = decimalPlaces;
         this.signed = signed;
+
+        type = Type.NUMERIC;
+        type.setLength(length);
     }
     
     protected Numeric(String name, int length, int decimalPlaces, boolean signed, Position position)
@@ -269,8 +275,7 @@ public abstract class Numeric extends Leaf
     @Override
     public CopybookElement toPojo() {
         CopybookElement vertex = super.toPojo();
-        vertex.setType(Type.NUMERIC);
-        vertex.setLength(length);
+        vertex.setType(type);
         return vertex;
     }
 

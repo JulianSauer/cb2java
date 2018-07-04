@@ -35,36 +35,43 @@ public class Decimal extends Numeric
     public Decimal(String name, int level, int occurs, String picture)
     {
         super(name, level, occurs, picture);
+        type = Type.DECIMAL;
     }
     
     public Decimal(String name, String picture)
     {
         super(name, 0, 1, picture);
+        type = Type.DECIMAL;
     }
     
     public Decimal(String picture)
     {
         super("", 0, 1, picture);
+        type = Type.DECIMAL;
     }
     
     public Decimal(String name, int length, int decimalPlaces, boolean signed)
     {
         super(name, length, decimalPlaces, signed, null);
+        type = Type.DECIMAL;
     }
     
     public Decimal(int length, int decimalPlaces, boolean signed)
     {
         super("", length, decimalPlaces, signed, null);
+        type = Type.DECIMAL;
     }
     
     public Decimal(String name, int length, int decimalPlaces, boolean signed, Position position)
     {
         super(name, length, decimalPlaces, signed, position);
+        type = Type.DECIMAL;
     }
     
     public Decimal(int length, int decimalPlaces, boolean signed, Position position)
     {
         super("", length, decimalPlaces, signed, position);
+        type = Type.DECIMAL;
     }
     
     /**
@@ -300,7 +307,7 @@ public class Decimal extends Numeric
     @Override
     public CopybookElement toPojo() {
         CopybookElement vertex = super.toPojo();
-        vertex.setType(Type.DECIMAL);
+        vertex.setType(type);
         return vertex;
     }
 

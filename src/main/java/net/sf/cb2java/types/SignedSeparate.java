@@ -32,36 +32,43 @@ public class SignedSeparate extends Numeric
     public SignedSeparate(String name, int level, int occurs, String picture)
     {
         super(name, level, occurs, picture);
+        type = Type.SIGNED_SEPARATE;
     }
     
     public SignedSeparate(String name, String picture)
     {
         super(name, 0, 1, picture);
+        type = Type.SIGNED_SEPARATE;
     }
     
     public SignedSeparate(String picture)
     {
         super("", 0, 1, picture);
+        type = Type.SIGNED_SEPARATE;
     }
     
     public SignedSeparate(String name, int length, int decimalPlaces, boolean signed)
     {
         super(name, length, decimalPlaces, signed, null);
+        type = Type.SIGNED_SEPARATE;
     }
     
     public SignedSeparate(int length, int decimalPlaces, boolean signed)
     {
         super("", length, decimalPlaces, signed, null);
+        type = Type.SIGNED_SEPARATE;
     }
     
     public SignedSeparate(String name, int length, int decimalPlaces, boolean signed, Position position)
     {
         super(name, length, decimalPlaces, signed, position);
+        type = Type.SIGNED_SEPARATE;
     }
     
     public SignedSeparate(int length, int decimalPlaces, boolean signed, Position position)
     {
         super("", length, decimalPlaces, signed, position);
+        type = Type.SIGNED_SEPARATE;
     }
     
     public static int getLength(String pic)
@@ -188,7 +195,7 @@ public class SignedSeparate extends Numeric
     @Override
     public CopybookElement toPojo() {
         CopybookElement vertex = super.toPojo();
-        vertex.setType(Type.SIGNED_SEPARATE);
+        vertex.setType(type);
         return vertex;
     }
 

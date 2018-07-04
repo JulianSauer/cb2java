@@ -40,6 +40,8 @@ public class Binary extends Numeric
         super(name, level, occurs, picture);
         digits = super.getLength();
         length = getLength(digits);
+        type = Type.BINARY;
+        type.setLength(length);
     }
     
     public Binary(String name, String picture)
@@ -47,6 +49,8 @@ public class Binary extends Numeric
         super(name, 0, 1, picture);
         digits = super.getLength();
         length = getLength(digits);
+        type = Type.BINARY;
+        type.setLength(length);
     }
     
     public Binary(String picture)
@@ -54,6 +58,8 @@ public class Binary extends Numeric
         super("", 0, 1, picture);
         digits = super.getLength();
         length = getLength(digits);
+        type = Type.BINARY;
+        type.setLength(length);
     }
     
     public Binary(String name, int length, int decimalPlaces, boolean signed)
@@ -61,6 +67,8 @@ public class Binary extends Numeric
         super(name, length, decimalPlaces, signed, null);
         digits = super.getLength();
         this.length = getLength(digits);
+        type = Type.BINARY;
+        type.setLength(length);
     }
     
     public Binary(int length, int decimalPlaces, boolean signed)
@@ -68,6 +76,8 @@ public class Binary extends Numeric
         super("", length, decimalPlaces, signed, null);
         digits = super.getLength();
         this.length = getLength(digits);
+        type = Type.BINARY;
+        type.setLength(length);
     }
     
     protected static final int getLength(int digits)
@@ -165,8 +175,7 @@ public class Binary extends Numeric
     @Override
     public CopybookElement toPojo() {
         CopybookElement vertex = super.toPojo();
-        vertex.setType(Type.BINARY);
-        vertex.setLength(length);
+        vertex.setType(type);
         return vertex;
     }
     

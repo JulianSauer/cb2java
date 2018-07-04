@@ -40,6 +40,10 @@ public class CopybookParserTest extends TestCase {
         Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
         assertEquals(31, copybook.getLength());
         List<Record> results = copybook.parseData(new FileInputStream(new File("./target/test-classes/b.input.txt")));
+        System.out.println("Definitions:");
+        for(Record record : results) {
+            record.toPOJOTree();
+        }
         assertEquals(1, results.size());
         Record record = results.get(0);
         Data root = record.getChild("ROOT");

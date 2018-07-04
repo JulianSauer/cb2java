@@ -36,6 +36,9 @@ public class Packed extends Numeric
         super(name, level, occurs, picture);
         digits = super.getLength();
         length = getLength(digits);
+
+        type = Type.PACKED;
+        type.setLength(length);
     }
 
     public Packed(String name, String picture)
@@ -53,6 +56,9 @@ public class Packed extends Numeric
         super(name, length, decimalPlaces, signed, null);
         digits = super.getLength();
         this.length = getLength(digits);
+
+        type = Type.PACKED;
+        type.setLength(length);
     }
     
     public Packed(int length, int decimalPlaces, boolean signed)
@@ -60,6 +66,9 @@ public class Packed extends Numeric
         super("", length, decimalPlaces, signed, null);
         digits = super.getLength();
         this.length = getLength(digits);
+
+        type = Type.PACKED;
+        type.setLength(length);
     }
 
     public Packed(String name, int length, int decimalPlaces, boolean signed, Position position)
@@ -67,6 +76,9 @@ public class Packed extends Numeric
         super(name, length, decimalPlaces, signed, position);
         digits = super.getLength();
         this.length = getLength(digits);
+
+        type = Type.PACKED;
+        type.setLength(length);
     }
     
     public Packed(int length, int decimalPlaces, boolean signed, Position position)
@@ -74,6 +86,9 @@ public class Packed extends Numeric
         super("", length, decimalPlaces, signed, position);
         digits = super.getLength();
         this.length = getLength(digits);
+
+        type = Type.PACKED;
+        type.setLength(length);
     }
 
     protected static final int getLength(int digits)
@@ -230,8 +245,7 @@ public class Packed extends Numeric
     @Override
     public CopybookElement toPojo() {
         CopybookElement vertex = super.toPojo();
-        vertex.setType(Type.PACKED);
-        vertex.setLength(length);
+        vertex.setType(type);
         return vertex;
     }
 

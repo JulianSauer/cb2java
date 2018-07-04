@@ -8,13 +8,11 @@ public class CopybookElement {
     private final String name;
     private final int level;
     private Type type;
-    private int length;
     private List<CopybookElement> children;
 
     public CopybookElement(String name, int level) {
         this.name = name;
         this.level = level;
-        length = 0;
         children = new ArrayList<>();
     }
 
@@ -35,11 +33,14 @@ public class CopybookElement {
     }
 
     public int getLength() {
-        return length;
+        if (type == null)
+            return 0;
+        return type.getLength();
     }
 
     public void setLength(int length) {
-        this.length = length;
+        if (type != null)
+        type.setLength(length);
     }
 
     public List<CopybookElement> getChildren() {

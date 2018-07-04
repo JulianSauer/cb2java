@@ -54,6 +54,8 @@ public class Floating extends Leaf
         }
         
         conversion = temp;
+
+        type = Type.FLOATING;
     }
     
     public Floating(Precision precision)
@@ -67,6 +69,8 @@ public class Floating extends Leaf
         
         this.precision = precision;
         this.conversion = conversion;
+
+        type = Type.FLOATING;
     }
 
     @Override
@@ -112,7 +116,7 @@ public class Floating extends Leaf
     @Override
     public CopybookElement toPojo() {
         CopybookElement vertex = super.toPojo();
-        vertex.setType(Type.FLOATING);
+        vertex.setType(type);
         return vertex;
     }
 

@@ -48,6 +48,9 @@ public class AlphaNumeric extends Characters
         length = parsePattern(pattern, buffer);
         
         this.pattern = Pattern.compile(buffer.toString());
+
+        type = Type.ALPHA_NUMERIC;
+        type.setLength(length);
     }
     
     public AlphaNumeric(String pattern)
@@ -129,8 +132,7 @@ public class AlphaNumeric extends Characters
     @Override
     public CopybookElement toPojo() {
         CopybookElement vertex = super.toPojo();
-        vertex.setType(Type.ALPHA_NUMERIC);
-        vertex.setLength(length);
+        vertex.setType(type);
         return vertex;
     }
 

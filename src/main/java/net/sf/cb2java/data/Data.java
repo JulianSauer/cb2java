@@ -137,9 +137,10 @@ public abstract class Data
         getDefinition().validate(data);
     }
 
-    public RecordVertex toPOJOTree() {
-        RecordVertex record = new RecordVertex();
+    public RecordData toPOJOTree() {
+        RecordData record = new RecordData();
         record.setName(getName());
+        record.setType(getDefinition().getType());
         if (getChildren().size() == 0)
           record.setValue(getValue());
         for(Data child : getChildren()) {

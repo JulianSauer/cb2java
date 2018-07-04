@@ -31,12 +31,15 @@ import net.sf.cb2java.data.Data;
 public class Characters extends Leaf
 {
     private final int length;
-    
+
     public Characters(String name, int length, int level, int occurs)
     {
         super(name, level, occurs);
         
         this.length = length;
+
+        type = Type.CHARACTERS;
+        type.setLength(length);
     }
     
     public int getLength()
@@ -83,8 +86,7 @@ public class Characters extends Leaf
     @Override
     public CopybookElement toPojo() {
         CopybookElement vertex = super.toPojo();
-        vertex.setType(Type.CHARACTERS);
-        vertex.setLength(length);
+        vertex.setType(type);
         return vertex;
     }
 

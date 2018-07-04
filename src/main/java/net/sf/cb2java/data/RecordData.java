@@ -1,25 +1,29 @@
 package net.sf.cb2java.data;
 
+import net.sf.cb2java.types.Type;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents copybook data types
+ * Simple representation of data
  */ 
-public class RecordVertex {
+public class RecordData {
 
     private String name;
 
     private Object value;
 
-    private List<RecordVertex> children;
+    private Type type;
 
-    public RecordVertex() {
+    private List<RecordData> children;
+
+    public RecordData() {
         this.name = "";
         this.children = new ArrayList<>(0);
     }
 
-    public RecordVertex(String name, Object value, List<RecordVertex> children) {
+    public RecordData(String name, Object value, List<RecordData> children) {
         this.name = name;
         this.value = value;
         this.children = children;
@@ -41,15 +45,29 @@ public class RecordVertex {
         this.value = value;
     }
 
-    public List<RecordVertex> getChildren() {
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public int getLength() {
+        if (type == null)
+            return 0;
+        return type.getLength();
+    }
+
+    public List<RecordData> getChildren() {
         return children;
     }
 
-    public void setChildren(List<RecordVertex> children) {
+    public void setChildren(List<RecordData> children) {
         this.children = children;
     }
 
-    public void addChild(RecordVertex child) {
+    public void addChild(RecordData child) {
         children.add(child);
     }
 

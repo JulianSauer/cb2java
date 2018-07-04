@@ -48,7 +48,9 @@ public abstract class Element
     private Value value;
     /** the parent of this element */
     private Group parent;
-    
+
+    protected Type type;
+
     /**
      * constructor
      * 
@@ -119,6 +121,14 @@ public abstract class Element
      * @return the bytes for the data
      */
     public abstract byte[] toBytes(Object data);
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
     
     /**
      * returns the name of this element
