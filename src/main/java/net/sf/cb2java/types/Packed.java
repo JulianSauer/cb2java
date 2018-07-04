@@ -226,4 +226,13 @@ public class Packed extends Numeric
 
         return bytes;
     }
+
+    @Override
+    public CopybookElement toPojo() {
+        CopybookElement vertex = super.toPojo();
+        vertex.setType(Type.PACKED);
+        vertex.setLength(length);
+        return vertex;
+    }
+
 }

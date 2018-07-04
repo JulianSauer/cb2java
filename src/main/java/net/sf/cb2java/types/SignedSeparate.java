@@ -184,4 +184,12 @@ public class SignedSeparate extends Numeric
     {
         return getLength() - 1;
     }
+
+    @Override
+    public CopybookElement toPojo() {
+        CopybookElement vertex = super.toPojo();
+        vertex.setType(Type.SIGNED_SEPARATE);
+        return vertex;
+    }
+
 }

@@ -296,4 +296,12 @@ public class Decimal extends Numeric
     {
         return getLength();
     }
+
+    @Override
+    public CopybookElement toPojo() {
+        CopybookElement vertex = super.toPojo();
+        vertex.setType(Type.DECIMAL);
+        return vertex;
+    }
+
 }

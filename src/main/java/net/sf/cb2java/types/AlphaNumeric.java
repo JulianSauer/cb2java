@@ -125,4 +125,13 @@ public class AlphaNumeric extends Characters
                 + "' specified for " + getName());
         }
     }
+
+    @Override
+    public CopybookElement toPojo() {
+        CopybookElement vertex = super.toPojo();
+        vertex.setType(Type.ALPHA_NUMERIC);
+        vertex.setLength(length);
+        return vertex;
+    }
+
 }

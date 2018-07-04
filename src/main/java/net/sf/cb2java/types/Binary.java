@@ -161,6 +161,14 @@ public class Binary extends Numeric
         
         return output;
     }
+
+    @Override
+    public CopybookElement toPojo() {
+        CopybookElement vertex = super.toPojo();
+        vertex.setType(Type.BINARY);
+        vertex.setLength(length);
+        return vertex;
+    }
     
     /**
      * Binary extension for native types 

@@ -108,4 +108,12 @@ public class Floating extends Leaf
 //        System.out.println("float:" + data);
         return conversion.toBytes((BigDecimal) data, precision);
     }
+
+    @Override
+    public CopybookElement toPojo() {
+        CopybookElement vertex = super.toPojo();
+        vertex.setType(Type.FLOATING);
+        return vertex;
+    }
+
 }

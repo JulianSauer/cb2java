@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+
 import net.sf.cb2java.Settings;
 import net.sf.cb2java.Value;
 import net.sf.cb2java.data.Data;
@@ -79,8 +80,8 @@ public abstract class Element
      * 
      * @return the children of this element or null if there are none
      */
-    public abstract List getChildren();
-    
+    public abstract List<Element> getChildren();
+
     /**
      * returns the number of bytes of one instance of this element
      * 
@@ -261,7 +262,14 @@ public abstract class Element
             return null;
         }
     }
-    
+
+    public CopybookElement toPojo() {
+        CopybookElement parent = new CopybookElement(getName(), getLevel());
+        for (Element child : getChildren())
+            parent.addChild(child.toPojo());
+        return parent;
+    }
+
     @Override
     public String toString() 
     {
