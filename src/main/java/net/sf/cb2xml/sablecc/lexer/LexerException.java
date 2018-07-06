@@ -2,10 +2,8 @@
 
 package net.sf.cb2xml.sablecc.lexer;
 
-public class LexerException extends Exception
-{
-    public LexerException(String message)
-    {
+public class LexerException extends Exception {
+    public LexerException(String message) {
         super(message);
     }
 }

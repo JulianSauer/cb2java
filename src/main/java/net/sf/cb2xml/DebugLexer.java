@@ -8,12 +8,13 @@
 
 package net.sf.cb2xml;
 
-import java.io.PushbackReader;
 import net.sf.cb2xml.sablecc.lexer.Lexer;
+
+import java.io.PushbackReader;
 
 /**
  * extension of Lexer to enable better error reporting
- * 
+ *
  * @author Peter Thomas
  */
 
@@ -21,20 +22,20 @@ import net.sf.cb2xml.sablecc.lexer.Lexer;
 // This will enable project Record-Editor to invoke this class. JFG
 public class DebugLexer extends Lexer {
 
-	private StringBuffer buffer = new StringBuffer();
-	
-	public StringBuffer getBuffer() {
-		return buffer;
-	}
-	
-	public DebugLexer(PushbackReader reader) {
-		super(reader);
-	}
+    private StringBuffer buffer = new StringBuffer();
 
-	protected void filter() {
-		buffer.append(token.getText());
-	    System.out.println(token.getClass() +
+    public StringBuffer getBuffer() {
+        return buffer;
+    }
+
+    public DebugLexer(PushbackReader reader) {
+        super(reader);
+    }
+
+    protected void filter() {
+        buffer.append(token.getText());
+        System.out.println(token.getClass() +
                 ", state : " + state.id() +
-                ", text : [" + token.getText() + "]");		
-	}
+                ", text : [" + token.getText() + "]");
+    }
 }

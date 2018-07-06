@@ -1,20 +1,21 @@
 package net.sf.cb2java.copybook;
 
+import junit.framework.TestCase;
+import net.sf.cb2java.data.GroupData;
+import net.sf.cb2java.data.Record;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
-import junit.framework.TestCase;
-import net.sf.cb2java.data.GroupData;
-import net.sf.cb2java.data.Record;
 
 /**
  *
  */
 public class DataTypesTest extends TestCase {
-    
+
     public DataTypesTest(String testName) {
         super(testName);
     }
@@ -39,8 +40,8 @@ public class DataTypesTest extends TestCase {
         Record record = records.get(0);
         GroupData integers = (GroupData) record.getChild("TYPES").getChildren().get(1);
         assertEquals(BigInteger.ZERO, integers.getChild("ZEROH").getValue());
-        assertEquals(BigInteger.ONE,  integers.getChild("ONE").getValue());
-        assertEquals(BigInteger.valueOf(9),   integers.getChild("NINE").getValue());
+        assertEquals(BigInteger.ONE, integers.getChild("ONE").getValue());
+        assertEquals(BigInteger.valueOf(9), integers.getChild("NINE").getValue());
     }
 
     public void testWeCanParseNegativeIntegers() throws FileNotFoundException, IOException {

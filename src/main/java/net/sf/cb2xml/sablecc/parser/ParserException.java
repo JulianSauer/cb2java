@@ -2,20 +2,17 @@
 
 package net.sf.cb2xml.sablecc.parser;
 
-import net.sf.cb2xml.sablecc.node.*;
+import net.sf.cb2xml.sablecc.node.Token;
 
-public class ParserException extends Exception
-{
+public class ParserException extends Exception {
     Token token;
 
-    public ParserException(Token token, String  message)
-    {
+    public ParserException(Token token, String message) {
         super(message);
         this.token = token;
     }
 
-    public Token getToken()
-    {
+    public Token getToken() {
         return token;
     }
 }

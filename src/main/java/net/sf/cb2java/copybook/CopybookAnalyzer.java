@@ -1,71 +1,33 @@
 /**
  * cb2java - Dynamic COBOL copybook parser for Java. Copyright (C) 2006 James
  * Watson
- *
+ * <p>
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation; either version 1, or (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 675 Mass
  * Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.cb2java.copybook;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.StringTokenizer;
 import net.sf.cb2java.Values;
 import net.sf.cb2java.types.Element;
 import net.sf.cb2java.types.Group;
 import net.sf.cb2java.types.SignedSeparate;
 import net.sf.cb2xml.sablecc.analysis.DepthFirstAdapter;
-import net.sf.cb2xml.sablecc.node.ABinaryUsagePhrase;
-import net.sf.cb2xml.sablecc.node.AComp1UsagePhrase;
-import net.sf.cb2xml.sablecc.node.AComp2UsagePhrase;
-import net.sf.cb2xml.sablecc.node.AComp3UsagePhrase;
-import net.sf.cb2xml.sablecc.node.AComp4UsagePhrase;
-import net.sf.cb2xml.sablecc.node.AComp5UsagePhrase;
-import net.sf.cb2xml.sablecc.node.ACompUsagePhrase;
-import net.sf.cb2xml.sablecc.node.ADisplay1UsagePhrase;
-import net.sf.cb2xml.sablecc.node.AFixedOccursFixedOrVariable;
-import net.sf.cb2xml.sablecc.node.AFunctionPointerUsagePhrase;
-import net.sf.cb2xml.sablecc.node.AIndexUsagePhrase;
-import net.sf.cb2xml.sablecc.node.AItem;
-import net.sf.cb2xml.sablecc.node.ALeadingLeadingOrTrailing;
-import net.sf.cb2xml.sablecc.node.ANationalUsagePhrase;
-import net.sf.cb2xml.sablecc.node.AObjectReferencePhrase;
-import net.sf.cb2xml.sablecc.node.AOccursTo;
-import net.sf.cb2xml.sablecc.node.APackedDecimalUsagePhrase;
-import net.sf.cb2xml.sablecc.node.APictureClause;
-import net.sf.cb2xml.sablecc.node.APointerUsagePhrase;
-import net.sf.cb2xml.sablecc.node.AProcedurePointerUsagePhrase;
-import net.sf.cb2xml.sablecc.node.ARecordDescription;
-import net.sf.cb2xml.sablecc.node.ARedefinesClause;
-import net.sf.cb2xml.sablecc.node.ASequenceLiteralSequence;
-import net.sf.cb2xml.sablecc.node.ASignClause;
-import net.sf.cb2xml.sablecc.node.ASingleLiteralSequence;
-import net.sf.cb2xml.sablecc.node.AThroughSequenceLiteralSequence;
-import net.sf.cb2xml.sablecc.node.AThroughSingleLiteralSequence;
-import net.sf.cb2xml.sablecc.node.AValueClause;
-import net.sf.cb2xml.sablecc.node.AValueItem;
-import net.sf.cb2xml.sablecc.node.AVariableOccursFixedOrVariable;
-import net.sf.cb2xml.sablecc.node.TAlphanumericLiteral;
-import net.sf.cb2xml.sablecc.node.THighValues;
-import net.sf.cb2xml.sablecc.node.TLowValues;
-import net.sf.cb2xml.sablecc.node.TNulls;
-import net.sf.cb2xml.sablecc.node.TNumber88;
-import net.sf.cb2xml.sablecc.node.TNumberNot88;
-import net.sf.cb2xml.sablecc.node.TQuotes;
-import net.sf.cb2xml.sablecc.node.TSpaces;
-import net.sf.cb2xml.sablecc.node.TZeros;
-import net.sf.cb2xml.sablecc.node.Token;
+import net.sf.cb2xml.sablecc.node.*;
 import net.sf.cb2xml.sablecc.parser.Parser;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * This class handles the hard part of the parsing work. It captures all the
@@ -121,7 +83,7 @@ class CopybookAnalyzer extends DepthFirstAdapter {
     private void walkTree(Item item) {
         item.getElement().setSettings((Copybook) document.getElement());
 
-        for (Iterator i = item.children.iterator(); i.hasNext();) {
+        for (Iterator i = item.children.iterator(); i.hasNext(); ) {
             Item child = (Item) i.next();
 
             if (child.redefines != null) {
@@ -448,7 +410,7 @@ class CopybookAnalyzer extends DepthFirstAdapter {
     int getPosition(String name) {
         List children = document.getElement().getChildren();
 
-        for (Iterator i = children.iterator(); i.hasNext();) {
+        for (Iterator i = children.iterator(); i.hasNext(); ) {
             Element testElement = (Element) i.next();
             if (testElement.getName().equals(name)) {
                 return testElement.getPosition();

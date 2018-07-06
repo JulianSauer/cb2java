@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Simple representation of data
- */ 
+ */
 public class RecordData extends CopybookElement {
 
     private Object value;
@@ -30,7 +30,7 @@ public class RecordData extends CopybookElement {
         List<RecordData> data = new ArrayList<>();
         for (CopybookElement element : getChildren()) {
             if (element.getClass().equals(RecordData.class))
-            data.add((RecordData) element);
+                data.add((RecordData) element);
         }
         return data;
     }

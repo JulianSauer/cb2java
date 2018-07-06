@@ -1,38 +1,37 @@
 /**
- *    cb2java - Dynamic COBOL copybook parser for Java.
- *    Copyright (C) 2006 James Watson
- *
- *    This program is free software; you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation; either version 1, or (at your option)
- *    any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
- *
- *    You should have received a copy of the GNU General Public License
- *    along with this program; if not, write to the Free Software
- *    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * cb2java - Dynamic COBOL copybook parser for Java.
+ * Copyright (C) 2006 James Watson
+ * <p>
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 1, or (at your option)
+ * any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.cb2java.types;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import net.sf.cb2java.data.Data;
 import net.sf.cb2java.data.DecimalData;
 import net.sf.cb2java.data.IntegerData;
 
-public class Packed extends Numeric
-{
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
+public class Packed extends Numeric {
     private static final BigInteger TEN = BigInteger.valueOf(10);
-//    BigInteger ZERO = BigInteger.valueOf(0);
+    //    BigInteger ZERO = BigInteger.valueOf(0);
     private final int digits;
     private final int length;
 
-    public Packed(String name, int level, int occurs, String picture)
-    {
+    public Packed(String name, int level, int occurs, String picture) {
         super(name, level, occurs, picture);
         digits = super.getLength();
         length = getLength(digits);
@@ -40,27 +39,23 @@ public class Packed extends Numeric
         type = Type.PACKED;
     }
 
-    public Packed(String name, String picture)
-    {
-        this("", 0, 1, picture);
-    }
-    
-    public Packed(String picture)
-    {
+    public Packed(String name, String picture) {
         this("", 0, 1, picture);
     }
 
-    public Packed(String name, int length, int decimalPlaces, boolean signed)
-    {
+    public Packed(String picture) {
+        this("", 0, 1, picture);
+    }
+
+    public Packed(String name, int length, int decimalPlaces, boolean signed) {
         super(name, length, decimalPlaces, signed, null);
         digits = super.getLength();
         this.length = getLength(digits);
 
         type = Type.PACKED;
     }
-    
-    public Packed(int length, int decimalPlaces, boolean signed)
-    {
+
+    public Packed(int length, int decimalPlaces, boolean signed) {
         super("", length, decimalPlaces, signed, null);
         digits = super.getLength();
         this.length = getLength(digits);
@@ -68,17 +63,15 @@ public class Packed extends Numeric
         type = Type.PACKED;
     }
 
-    public Packed(String name, int length, int decimalPlaces, boolean signed, Position position)
-    {
+    public Packed(String name, int length, int decimalPlaces, boolean signed, Position position) {
         super(name, length, decimalPlaces, signed, position);
         digits = super.getLength();
         this.length = getLength(digits);
 
         type = Type.PACKED;
     }
-    
-    public Packed(int length, int decimalPlaces, boolean signed, Position position)
-    {
+
+    public Packed(int length, int decimalPlaces, boolean signed, Position position) {
         super("", length, decimalPlaces, signed, position);
         digits = super.getLength();
         this.length = getLength(digits);
@@ -86,24 +79,20 @@ public class Packed extends Numeric
         type = Type.PACKED;
     }
 
-    protected static final int getLength(int digits)
-    {
+    protected static final int getLength(int digits) {
         return (digits / 2) + 1;
     }
 
     @Override
-    public int getLength()
-    {
+    public int getLength() {
         return length;
     }
 
-    public int digits()
-    {
+    public int digits() {
         return digits;
     }
 
-    public Data parse(byte[] input)
-    {
+    public Data parse(byte[] input) {
         // for (int i = 0; i < input.length; i++) {
         // System.out.print(input[i]);
         // System.out.print(' ');
@@ -183,8 +172,7 @@ public class Packed extends Numeric
         }
     }
 
-    public byte[] toBytes(Object data)
-    {
+    public byte[] toBytes(Object data) {
         BigInteger bigI;
 
         if (data == null) {

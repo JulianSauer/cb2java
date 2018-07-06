@@ -1,18 +1,19 @@
 package net.sf.cb2java.copybook;
 
+import junit.framework.TestCase;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Map;
-import junit.framework.TestCase;
 
-import static net.sf.cb2java.copybook.Copybooks.*;
+import static net.sf.cb2java.copybook.Copybooks.copybookNameOfFile;
+import static net.sf.cb2java.copybook.Copybooks.readCopybooks;
 
 /**
- *
  * @author jevery
  */
 public class CopybooksTest extends TestCase {
-    
+
     public CopybooksTest(String testName) {
         super(testName);
     }
