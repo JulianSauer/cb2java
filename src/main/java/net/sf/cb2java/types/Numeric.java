@@ -51,7 +51,6 @@ public abstract class Numeric extends Leaf
         this.signed = isSigned(picture);
 
         type = Type.NUMERIC;
-        type.setLength(length);
     }
     
     protected Numeric(String name, int level, int occurs, final int length, final int decimalPlaces, final boolean signed)
@@ -63,7 +62,6 @@ public abstract class Numeric extends Leaf
         this.signed = signed;
 
         type = Type.NUMERIC;
-        type.setLength(length);
     }
     
     protected Numeric(String name, int length, int decimalPlaces, boolean signed, Position position)

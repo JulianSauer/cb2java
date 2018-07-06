@@ -50,7 +50,6 @@ public class AlphaNumeric extends Characters
         this.pattern = Pattern.compile(buffer.toString());
 
         type = Type.ALPHA_NUMERIC;
-        type.setLength(length);
     }
     
     public AlphaNumeric(String pattern)

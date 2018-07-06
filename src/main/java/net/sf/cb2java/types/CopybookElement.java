@@ -5,19 +5,26 @@ import java.util.List;
 
 public class CopybookElement {
 
-    private final String name;
+    private String name;
     private final int level;
+    private int length;
     private Type type;
     private List<CopybookElement> children;
 
-    public CopybookElement(String name, int level) {
+    public CopybookElement(String name, int level, int length, Type type) {
         this.name = name;
         this.level = level;
+        this.length = length;
+        this.type = type;
         children = new ArrayList<>();
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getLevel() {
@@ -33,14 +40,11 @@ public class CopybookElement {
     }
 
     public int getLength() {
-        if (type == null)
-            return 0;
-        return type.getLength();
+        return length;
     }
 
     public void setLength(int length) {
-        if (type != null)
-        type.setLength(length);
+        this.length = length;
     }
 
     public List<CopybookElement> getChildren() {

@@ -38,7 +38,6 @@ public class Packed extends Numeric
         length = getLength(digits);
 
         type = Type.PACKED;
-        type.setLength(length);
     }
 
     public Packed(String name, String picture)
@@ -58,7 +57,6 @@ public class Packed extends Numeric
         this.length = getLength(digits);
 
         type = Type.PACKED;
-        type.setLength(length);
     }
     
     public Packed(int length, int decimalPlaces, boolean signed)
@@ -68,7 +66,6 @@ public class Packed extends Numeric
         this.length = getLength(digits);
 
         type = Type.PACKED;
-        type.setLength(length);
     }
 
     public Packed(String name, int length, int decimalPlaces, boolean signed, Position position)
@@ -78,7 +75,6 @@ public class Packed extends Numeric
         this.length = getLength(digits);
 
         type = Type.PACKED;
-        type.setLength(length);
     }
     
     public Packed(int length, int decimalPlaces, boolean signed, Position position)
@@ -88,7 +84,6 @@ public class Packed extends Numeric
         this.length = getLength(digits);
 
         type = Type.PACKED;
-        type.setLength(length);
     }
 
     protected static final int getLength(int digits)

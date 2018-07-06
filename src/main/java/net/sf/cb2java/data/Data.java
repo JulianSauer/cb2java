@@ -138,11 +138,9 @@ public abstract class Data
     }
 
     public RecordData toPOJOTree() {
-        RecordData record = new RecordData();
-        record.setName(getName());
-        record.setType(getDefinition().getType());
-        if (getChildren().size() == 0)
-          record.setValue(getValue());
+        RecordData record = new RecordData(getName(), getDefinition().getLevel(), getDefinition().getLength(), getDefinition().getType(), getValue());
+        if (getChildren().size() != 0)
+          record.setValue(null);
         for(Data child : getChildren()) {
             record.addChild(child.toPOJOTree());
         }

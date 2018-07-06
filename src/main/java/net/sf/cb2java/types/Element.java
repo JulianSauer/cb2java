@@ -274,7 +274,7 @@ public abstract class Element
     }
 
     public CopybookElement toPojo() {
-        CopybookElement parent = new CopybookElement(getName(), getLevel());
+        CopybookElement parent = new CopybookElement(getName(), getLevel(), getLength(), getType());
         for (Element child : getChildren())
             parent.addChild(child.toPojo());
         return parent;

@@ -39,7 +39,6 @@ public class Characters extends Leaf
         this.length = length;
 
         type = Type.CHARACTERS;
-        type.setLength(length);
     }
     
     public int getLength()

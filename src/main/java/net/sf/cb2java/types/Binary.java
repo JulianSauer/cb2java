@@ -41,7 +41,6 @@ public class Binary extends Numeric
         digits = super.getLength();
         length = getLength(digits);
         type = Type.BINARY;
-        type.setLength(length);
     }
     
     public Binary(String name, String picture)
@@ -50,7 +49,6 @@ public class Binary extends Numeric
         digits = super.getLength();
         length = getLength(digits);
         type = Type.BINARY;
-        type.setLength(length);
     }
     
     public Binary(String picture)
@@ -59,7 +57,6 @@ public class Binary extends Numeric
         digits = super.getLength();
         length = getLength(digits);
         type = Type.BINARY;
-        type.setLength(length);
     }
     
     public Binary(String name, int length, int decimalPlaces, boolean signed)
@@ -68,7 +65,6 @@ public class Binary extends Numeric
         digits = super.getLength();
         this.length = getLength(digits);
         type = Type.BINARY;
-        type.setLength(length);
     }
     
     public Binary(int length, int decimalPlaces, boolean signed)
@@ -77,7 +73,6 @@ public class Binary extends Numeric
         digits = super.getLength();
         this.length = getLength(digits);
         type = Type.BINARY;
-        type.setLength(length);
     }
     
     protected static final int getLength(int digits)

@@ -8,19 +8,5 @@ public enum Type {
     FLOATING,
     NUMERIC,
     PACKED,
-    SIGNED_SEPARATE;
-
-    private int length;
-
-    Type() {
-        length = 0;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
+    SIGNED_SEPARATE
 }
