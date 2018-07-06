@@ -240,7 +240,7 @@ public class Decimal extends Numeric
             int last = input.length() - 1; 
             char c = input.charAt(last); 
             s = (isPositive(c) ? "" : "-") 
-                + (input.length() > 1 ? input.substring(0, last-1) : "") + getNumber(c);
+                + (input.length() > 1 ? input.substring(0, last) : "") + getNumber(c);
         }
         
         BigInteger big = s == null ? null : new BigInteger(s);
