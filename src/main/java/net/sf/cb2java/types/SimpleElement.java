@@ -2,7 +2,7 @@ package net.sf.cb2java.types;
 
 import java.util.List;
 
-public interface SimpleElement<T extends SimpleElement> {
+public interface SimpleElement {
 
     /**
      * Returns the name of this element
@@ -39,5 +39,5 @@ public interface SimpleElement<T extends SimpleElement> {
      *
      * @return Children of this element or null if there are none
      */
-    List<T> getChildren();
+    List<? extends SimpleElement> getChildren();
 }

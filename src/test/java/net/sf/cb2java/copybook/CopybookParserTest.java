@@ -30,18 +30,8 @@ public class CopybookParserTest extends TestCase {
      */
     public void testWeCanParseCopybook() throws FileNotFoundException {
         Copybook copybook = CopybookParser.parse("A", new FileInputStream(new File("./target/test-classes/a.copybook")));
-        assertEquals(55, copybook.getLength());
-    }
-
-    /**
-     * Parse copybook data to a POJO tree structure
-     *
-     * @throws FileNotFoundException
-     */
-    public void testWeCanParseCopybookAsTree() throws FileNotFoundException {
-        Copybook copybook = CopybookParser.parse("A", new FileInputStream(new File("./target/test-classes/a.copybook")));
         SimpleElement element = copybook.getChildren().get(0);
-        List<SimpleElement> children = element.getChildren();
+        List<SimpleElement> children = (List<SimpleElement>) element.getChildren();
 
         assertEquals("ROOT", element.getName());
         assertNull(element.getType());
@@ -72,12 +62,12 @@ public class CopybookParserTest extends TestCase {
         assertNull(sub.getType());
         assertEquals(6, sub.getLength());
 
-        SimpleElement e = (SimpleElement) sub.getChildren().get(0);
+        SimpleElement e = sub.getChildren().get(0);
         assertEquals("E", e.getName());
         assertEquals(Type.ALPHA_NUMERIC, e.getType());
         assertEquals(3, e.getLength());
 
-        SimpleElement f = (SimpleElement) sub.getChildren().get(1);
+        SimpleElement f = sub.getChildren().get(1);
         assertEquals("F", f.getName());
         assertEquals(Type.ALPHA_NUMERIC, f.getType());
         assertEquals(3, f.getLength());
@@ -111,30 +101,9 @@ public class CopybookParserTest extends TestCase {
     /**
      * Parse copybook data.
      *
-     * @throws FileNotFoundException
+     * @throws IOException
      */
-    public void testWeCanParseCopybookData() throws FileNotFoundException, IOException {
-        Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
-        assertEquals(31, copybook.getLength());
-        List<Record> results = copybook.parseData(new FileInputStream(new File("./target/test-classes/b.input.txt")));
-        System.out.println("Definitions:");
-        assertEquals(1, results.size());
-        Record record = results.get(0);
-        Data root = record.getChild("ROOT");
-        assertEquals("ABCDEF", root.getChildren().get(0).toString());
-        assertEquals("B", ((Data) root.getChildren().get(1)).getName().toString());
-        assertEquals("BCDE", root.getChildren().get(1).toString());
-        // TODO assertEquals(12345, root.getChildren().get(2).toString());
-        // TODO assertEquals(1234, ((Data)root.getChildren().get(3)).getValue());
-        System.out.println(root.toString());
-    }
-
-    /**
-     * Parse copybook data to a POJO tree.
-     *
-     * @throws FileNotFoundException
-     */
-    public void testWeCanParseCopybookDataAsTree() throws FileNotFoundException, IOException {
+    public void testWeCanParseCopybookData() throws IOException {
         Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
         List<Record> results = copybook.parseData(new FileInputStream(new File("./target/test-classes/b.input.txt")));
         SimpleData root = results.get(0).getChildren().get(0);
@@ -145,7 +114,7 @@ public class CopybookParserTest extends TestCase {
         assertEquals(10, root.getLevel());
         assertNull(root.getType());
 
-        List<SimpleData> children = root.getChildren();
+        List<SimpleData> children = (List<SimpleData>) root.getChildren();
 
         SimpleData a = children.get(0);
         assertEquals("A", a.getName());
