@@ -1,4 +1,6 @@
-The CB2Java project's goal is to simplify the lives of developers charged 
+[![Build Status](https://api.travis-ci.org/JulianSauer/cb2java.svg)](https://api.travis-ci.org/JulianSauer/cb2java)
+
+The CB2Java project's goal is to simplify the lives of developers charged
 with writing Java applications that communicate
 with COBOL applications. The main motivation for writing this library was
 that in the limited number of available (free) libraries, none had been
