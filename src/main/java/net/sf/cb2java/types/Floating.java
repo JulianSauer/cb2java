@@ -104,11 +104,4 @@ public class Floating extends Leaf {
         return conversion.toBytes((BigDecimal) data, precision);
     }
 
-    @Override
-    public CopybookElement toPojo() {
-        CopybookElement vertex = super.toPojo();
-        vertex.setType(type);
-        return vertex;
-    }
-
 }

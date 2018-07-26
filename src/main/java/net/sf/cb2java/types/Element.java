@@ -32,7 +32,7 @@ import java.util.List;
  *
  * @author James Watson
  */
-public abstract class Element {
+public abstract class Element implements SimpleElement {
     /** the name of the element from the copybook */
     private final String name;
     /** the level of the element from the copybook */
@@ -74,19 +74,7 @@ public abstract class Element {
         return value;
     }
 
-    /**
-     * gets the children of this element or null if there are none
-     *
-     * @return the children of this element or null if there are none
-     */
     public abstract List<Element> getChildren();
-
-    /**
-     * returns the number of bytes of one instance of this element
-     *
-     * @return the number of bytes of one instance of this element
-     */
-    public abstract int getLength();
 
     /**
      * creates a new empty Data instance for this element
@@ -119,6 +107,7 @@ public abstract class Element {
      */
     public abstract byte[] toBytes(Object data);
 
+    @Override
     public Type getType() {
         return type;
     }
@@ -127,20 +116,12 @@ public abstract class Element {
         this.type = type;
     }
 
-    /**
-     * returns the name of this element
-     *
-     * @return the name of this element
-     */
+    @Override
     public final String getName() {
         return name;
     }
 
-    /**
-     * returns the level of this element
-     *
-     * @return the level of this element
-     */
+    @Override
     public final int getLevel() {
         return level;
     }
@@ -154,11 +135,7 @@ public abstract class Element {
         return position;
     }
 
-    /**
-     * returns the number of times this item appears in data
-     *
-     * @return the number of times this item appears in data
-     */
+    @Override
     public int getOccurs() {
         return occurs;
     }
@@ -257,13 +234,6 @@ public abstract class Element {
         } else {
             return null;
         }
-    }
-
-    public CopybookElement toPojo() {
-        CopybookElement parent = new CopybookElement(getName(), getLevel(), getLength(), getType());
-        for (Element child : getChildren())
-            parent.addChild(child.toPojo());
-        return parent;
     }
 
     @Override

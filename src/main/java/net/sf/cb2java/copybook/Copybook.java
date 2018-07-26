@@ -99,7 +99,7 @@ public class Copybook extends Group implements Settings {
      * @return a new empty application data instance
      */
     public Record createNew() {
-        return new Record(getName(), (GroupData) super.create());
+        return new Record((GroupData) super.create());
     }
 
     /**
@@ -110,7 +110,7 @@ public class Copybook extends Group implements Settings {
      * @throws IOException
      */
     public Record parseData(byte[] data) throws IOException {
-        return new Record(getName(), (GroupData) parse(data));
+        return new Record((GroupData) parse(data));
     }
 
     public List<Record> parseData(InputStream stream) throws IOException {
@@ -120,7 +120,7 @@ public class Copybook extends Group implements Settings {
         int size = getLength();
         byte[] buffer = new byte[size];
         while (bufferedStream.read(buffer, 0, size) != -1) {
-            list.add(new Record(getName(), (GroupData) parse(buffer)));
+            list.add(new Record((GroupData) parse(buffer)));
         }
 
         return list;

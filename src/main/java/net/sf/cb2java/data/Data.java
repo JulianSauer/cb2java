@@ -19,6 +19,7 @@
 package net.sf.cb2java.data;
 
 import net.sf.cb2java.types.Element;
+import net.sf.cb2java.types.Type;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -29,12 +30,7 @@ import java.util.List;
  *
  * @author James Watson
  */
-public abstract class Data {
-    /**
-     * the string used to indent data in
-     * toString methods
-     */
-    static final String INDENT = "  ";
+public abstract class Data implements SimpleData {
 
     private final Element definition;
 
@@ -45,13 +41,6 @@ public abstract class Data {
      */
     public Data(final Element definition) {
         this.definition = definition;
-    }
-
-    /**
-     * returns the name of the type that defines this element
-     */
-    public String getName() {
-        return getDefinition().getName();
     }
 
     public abstract boolean isLeaf();
@@ -75,11 +64,6 @@ public abstract class Data {
     public Element getDefinition() {
         return definition;
     }
-
-    /**
-     * returns the Object as it's 'natural' Java type
-     */
-    public abstract Object getValue();
 
     /**
      * Sets the internal value of this item.  If the data is not
@@ -111,8 +95,6 @@ public abstract class Data {
     protected abstract void setValueImpl(Object data);
 
     /**
-     *
-     *
      * @param stream
      * @throws IOException
      */
@@ -129,14 +111,29 @@ public abstract class Data {
         getDefinition().validate(data);
     }
 
-    public RecordData toPOJOTree() {
-        RecordData record = new RecordData(getName(), getDefinition().getLevel(), getDefinition().getLength(), getDefinition().getType(), getValue());
-        if (getChildren().size() != 0)
-            record.setValue(null);
-        for (Data child : getChildren()) {
-            record.addChild(child.toPOJOTree());
-        }
-        return record;
+    @Override
+    public String getName() {
+        return getDefinition().getName();
+    }
+
+    @Override
+    public int getLevel() {
+        return getDefinition().getLevel();
+    }
+
+    @Override
+    public Type getType() {
+        return getDefinition().getType();
+    }
+
+    @Override
+    public int getOccurs() {
+        return getDefinition().getOccurs();
+    }
+
+    @Override
+    public int getLength() {
+        return getDefinition().getLength();
     }
 
     /**

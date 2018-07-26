@@ -121,11 +121,4 @@ public class AlphaNumeric extends Characters {
         }
     }
 
-    @Override
-    public CopybookElement toPojo() {
-        CopybookElement vertex = super.toPojo();
-        vertex.setType(type);
-        return vertex;
-    }
-
 }

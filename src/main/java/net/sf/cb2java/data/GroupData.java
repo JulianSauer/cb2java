@@ -101,7 +101,7 @@ public class GroupData extends Data {
 
         for (Iterator i = wrapper.iterator(); i.hasNext(); ) {
             buffer.append('\n');
-            buffer.append(((Data) i.next()).toString(indent + INDENT));
+            buffer.append(((Data) i.next()).toString(indent + "  "));
         }
 
         return buffer.toString();
@@ -116,11 +116,11 @@ public class GroupData extends Data {
     }
 
     /**
-     * returns the children of this item
+     * GroupData has no value
      */
     @Override
     public Object getValue() {
-        return getChildren();
+        return null;
     }
 
     @Override

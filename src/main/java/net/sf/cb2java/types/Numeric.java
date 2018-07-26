@@ -253,11 +253,4 @@ public abstract class Numeric extends Leaf {
         }
     }
 
-    @Override
-    public CopybookElement toPojo() {
-        CopybookElement vertex = super.toPojo();
-        vertex.setType(type);
-        return vertex;
-    }
-
 }

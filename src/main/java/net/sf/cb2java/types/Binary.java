@@ -156,13 +156,6 @@ public class Binary extends Numeric {
         return output;
     }
 
-    @Override
-    public CopybookElement toPojo() {
-        CopybookElement vertex = super.toPojo();
-        vertex.setType(type);
-        return vertex;
-    }
-
     /**
      * Binary extension for native types 
      *

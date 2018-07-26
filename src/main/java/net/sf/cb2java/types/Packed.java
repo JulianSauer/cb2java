@@ -225,11 +225,4 @@ public class Packed extends Numeric {
         return bytes;
     }
 
-    @Override
-    public CopybookElement toPojo() {
-        CopybookElement vertex = super.toPojo();
-        vertex.setType(type);
-        return vertex;
-    }
-
 }

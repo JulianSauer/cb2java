@@ -311,11 +311,4 @@ public class Decimal extends Numeric {
         return getLength();
     }
 
-    @Override
-    public CopybookElement toPojo() {
-        CopybookElement vertex = super.toPojo();
-        vertex.setType(type);
-        return vertex;
-    }
-
 }

@@ -75,11 +75,4 @@ public class Characters extends Leaf {
         return super.getValue() == null ? getSettings().getValues().SPACES : super.getValue();
     }
 
-    @Override
-    public CopybookElement toPojo() {
-        CopybookElement vertex = super.toPojo();
-        vertex.setType(type);
-        return vertex;
-    }
-
 }
