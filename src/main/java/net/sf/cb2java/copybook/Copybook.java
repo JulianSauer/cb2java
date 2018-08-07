@@ -32,10 +32,7 @@ import net.sf.cb2java.types.Numeric.Position;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Represents a copybook data definition in memory
@@ -75,7 +72,7 @@ public class Copybook extends Group implements Settings {
      * redefined an element.  This behavior is partial, untested and
      * not officially supported (yet)
      *
-     * @param main the name of the original element
+     * @param main  the name of the original element
      * @param alias the new name
      */
     void redefine(String main, Element alias) {
@@ -103,16 +100,33 @@ public class Copybook extends Group implements Settings {
     }
 
     /**
-     * creates a new application data element with the given data
+     * Creates a list of records with the given data
      *
-     * @param data the data to create the instance for
-     * @return a new application data element with the given data
+     * @param data The data to create the list for
+     * @return List containing the parsed data
      * @throws IOException
      */
-    public Record parseData(byte[] data) throws IOException {
-        return new Record((GroupData) parse(data));
+    public List<Record> parseData(byte[] data) throws IOException {
+        int size = getLength();
+        if (data.length > size) {
+            List<Record> list = new ArrayList<>();
+            for (int i = 0; i < data.length; i += size) {
+                byte[] buffer = Arrays.copyOfRange(data, i, i + size - 1);
+                list.add(new Record((GroupData) parse(buffer)));
+            }
+            return list;
+        } else {
+            return java.util.Arrays.asList(new Record((GroupData) parse(data)));
+        }
     }
 
+    /**
+     * Creates a list of records with the given data
+     *
+     * @param stream The data to create the list for
+     * @return List containing the parsed data
+     * @throws IOException
+     */
     public List<Record> parseData(InputStream stream) throws IOException {
         BufferedInputStream bufferedStream = new BufferedInputStream(stream);
         List<Record> list = new ArrayList<>();

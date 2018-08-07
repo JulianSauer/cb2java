@@ -1,16 +1,12 @@
 package net.sf.cb2java.copybook;
 
 import junit.framework.TestCase;
-import net.sf.cb2java.data.Data;
 import net.sf.cb2java.data.Record;
 import net.sf.cb2java.data.SimpleData;
 import net.sf.cb2java.types.SimpleElement;
 import net.sf.cb2java.types.Type;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -179,6 +175,24 @@ public class CopybookParserTest extends TestCase {
         assertEquals("FFF", f2.getValue());
         assertEquals(20, f2.getLevel());
         assertEquals(Type.ALPHA_NUMERIC, f2.getType());
+    }
+
+    public void testWeCanParseCopybookAsByteArray() throws IOException {
+        Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
+
+        File file = new File("./target/test-classes/b.input.txt");
+        byte[] buffer = new byte[(int) file.length()];
+        InputStream inputStream = new FileInputStream(file);
+        DataInputStream dataInputStream = new DataInputStream(inputStream);
+        dataInputStream.readFully(buffer);
+        List<Record> results = copybook.parseData(buffer);
+        SimpleData root = results.get(0).getChildren().get(0);
+
+        assertEquals("ROOT", root.getName());
+        assertEquals(31, root.getLength());
+        assertNull(root.getValue());
+        assertEquals(10, root.getLevel());
+        assertNull(root.getType());
     }
 
     public void testRightTrimOfPICXfields() throws FileNotFoundException, IOException {
