@@ -104,11 +104,12 @@ public class Copybook extends Group implements Settings {
      *
      * @param data The data to create the list for
      * @return List containing the parsed data
-     * @throws IOException
      */
-    public List<Record> parseData(byte[] data) throws IOException {
+    public List<Record> parseData(byte[] data) {
         int size = getLength();
         if (data.length > size) {
+            if (data.length % size != 0)
+                throw new InputMismatchException("Input size does not match copybook length");
             List<Record> list = new ArrayList<>();
             for (int i = 0; i < data.length; i += size) {
                 byte[] buffer = Arrays.copyOfRange(data, i, i + size);
