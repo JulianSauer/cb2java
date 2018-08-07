@@ -111,7 +111,7 @@ public class Copybook extends Group implements Settings {
         if (data.length > size) {
             List<Record> list = new ArrayList<>();
             for (int i = 0; i < data.length; i += size) {
-                byte[] buffer = Arrays.copyOfRange(data, i, i + size - 1);
+                byte[] buffer = Arrays.copyOfRange(data, i, i + size);
                 list.add(new Record((GroupData) parse(buffer)));
             }
             return list;

@@ -180,19 +180,56 @@ public class CopybookParserTest extends TestCase {
     public void testWeCanParseCopybookAsByteArray() throws IOException {
         Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
 
-        File file = new File("./target/test-classes/b.input.txt");
-        byte[] buffer = new byte[(int) file.length()];
-        InputStream inputStream = new FileInputStream(file);
-        DataInputStream dataInputStream = new DataInputStream(inputStream);
-        dataInputStream.readFully(buffer);
-        List<Record> results = copybook.parseData(buffer);
-        SimpleData root = results.get(0).getChildren().get(0);
+        File fileB = new File("./target/test-classes/b.input.txt");
+        byte[] bufferB = new byte[(int) fileB.length()];
+        InputStream inputStreamB = new FileInputStream(fileB);
+        DataInputStream dataInputStreamB = new DataInputStream(inputStreamB);
+        dataInputStreamB.readFully(bufferB);
+        List<Record> resultsB = copybook.parseData(bufferB);
+        SimpleData rootB = resultsB.get(0).getChildren().get(0);
 
-        assertEquals("ROOT", root.getName());
-        assertEquals(31, root.getLength());
-        assertNull(root.getValue());
-        assertEquals(10, root.getLevel());
-        assertNull(root.getType());
+        assertEquals("ROOT", rootB.getName());
+        assertEquals(31, rootB.getLength());
+        assertNull(rootB.getValue());
+        assertEquals(10, rootB.getLevel());
+        assertNull(rootB.getType());
+
+
+        File fileC = new File("./target/test-classes/c.input.txt");
+        byte[] bufferC = new byte[(int) fileC.length()];
+        InputStream inputStreamC = new FileInputStream(fileC);
+        DataInputStream dataInputStreamC = new DataInputStream(inputStreamC);
+        dataInputStreamC.readFully(bufferC);
+        List<Record> resultsC = copybook.parseData(bufferC);
+
+        assertEquals(3, resultsC.size());
+
+        SimpleData rootC1 = resultsC.get(0).getChildren().get(0);
+        SimpleData sub1 = (SimpleData) rootC1.getChildren().get(5);
+        SimpleData f1 = (SimpleData) sub1.getChildren().get(1);
+        assertEquals("F", f1.getName());
+        assertEquals(3, f1.getLength());
+        assertEquals("FFF", f1.getValue());
+        assertEquals(20, f1.getLevel());
+        assertEquals(Type.ALPHA_NUMERIC, f1.getType());
+
+        SimpleData rootC2 = resultsC.get(1).getChildren().get(0);
+        SimpleData sub2 = (SimpleData) rootC2.getChildren().get(5);
+        SimpleData f2 = (SimpleData) sub2.getChildren().get(1);
+        assertEquals("F", f2.getName());
+        assertEquals(3, f2.getLength());
+        assertEquals("EEE", f2.getValue());
+        assertEquals(20, f2.getLevel());
+        assertEquals(Type.ALPHA_NUMERIC, f2.getType());
+
+        SimpleData rootC3 = resultsC.get(2).getChildren().get(0);
+        SimpleData sub3 = (SimpleData) rootC3.getChildren().get(5);
+        SimpleData f3 = (SimpleData) sub3.getChildren().get(1);
+        assertEquals("F", f3.getName());
+        assertEquals(3, f3.getLength());
+        assertEquals("FFF", f3.getValue());
+        assertEquals(20, f3.getLevel());
+        assertEquals(Type.ALPHA_NUMERIC, f3.getType());
     }
 
     public void testRightTrimOfPICXfields() throws FileNotFoundException, IOException {
