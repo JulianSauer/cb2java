@@ -36,6 +36,11 @@ public class IntegerData extends NumericData {
         super(definition);
     }
 
+    @Override
+    public byte[] getBytes() {
+        return data.toString().getBytes();
+    }
+
     public int getInt() {
         return data == null ? 0 : data.intValue();
     }

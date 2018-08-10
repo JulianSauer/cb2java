@@ -51,6 +51,11 @@ public class FloatingData extends ValueData {
         super(definition);
     }
 
+    @Override
+    public byte[] getBytes() {
+        return data.toBigInteger().toByteArray();
+    }
+
     /**
      * gets the big decimal representation of the value
      */

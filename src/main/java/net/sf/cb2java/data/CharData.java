@@ -20,6 +20,8 @@ package net.sf.cb2java.data;
 
 import net.sf.cb2java.types.Characters;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * Represents data for alpha-numeric data types.
  *
@@ -32,6 +34,11 @@ public class CharData extends ValueData {
     public CharData(final Characters definition) {
         super(definition);
 //        this.definition = definition;
+    }
+
+    @Override
+    public byte[] getBytes() {
+        return data.getBytes(StandardCharsets.UTF_8);
     }
 
     /**

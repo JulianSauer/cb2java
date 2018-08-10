@@ -19,6 +19,7 @@
 package net.sf.cb2java.data;
 
 import net.sf.cb2java.types.Group;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -56,6 +57,15 @@ public class GroupData extends Data {
 //            return children.size();
 //        }
 //    }
+
+    @Override
+    public byte[] getBytes() {
+        List<Byte> bytes = new ArrayList<>();
+        for (Data child : getChildren())
+            for (byte b : child.getBytes())
+                bytes.add(b);
+        return ArrayUtils.toPrimitive(bytes.toArray(new Byte[0]));
+    }
 
     @Override
     public boolean isLeaf() {

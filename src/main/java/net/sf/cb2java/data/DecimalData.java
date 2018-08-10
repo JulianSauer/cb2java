@@ -30,6 +30,11 @@ public class DecimalData extends NumericData {
         super(definition);
     }
 
+    @Override
+    public byte[] getBytes() {
+        return data.toBigInteger().toByteArray();
+    }
+
     public void setRoundingMode(int mode) {
         this.roundingMode = mode;
     }
