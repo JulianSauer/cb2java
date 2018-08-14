@@ -109,7 +109,7 @@ public class Copybook extends Group implements Settings {
         int size = getLength();
         if (data.length > size) {
             if (data.length % size != 0)
-                throw new InputMismatchException("Input size does not match copybook length");
+                throw new InputMismatchException("Input size of " + data.length + " does not match copybook length of " + size + ". Input was: " + new String(data));
             List<Record> list = new ArrayList<>();
             for (int i = 0; i < data.length; i += size) {
                 byte[] buffer = Arrays.copyOfRange(data, i, i + size);
