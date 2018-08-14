@@ -8,6 +8,8 @@ import net.sf.cb2java.types.Type;
 
 import java.io.*;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 
 /**
@@ -180,11 +182,7 @@ public class CopybookParserTest extends TestCase {
     public void testWeCanParseCopybookAsByteArray() throws IOException {
         Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
 
-        File fileB = new File("./target/test-classes/b.input.txt");
-        byte[] bufferB = new byte[(int) fileB.length()];
-        InputStream inputStreamB = new FileInputStream(fileB);
-        DataInputStream dataInputStreamB = new DataInputStream(inputStreamB);
-        dataInputStreamB.readFully(bufferB);
+        byte[] bufferB = Files.readAllBytes(new File("./target/test-classes/b.input.txt").toPath());
         List<Record> resultsB = copybook.parseData(bufferB);
         SimpleData rootB = resultsB.get(0).getChildren().get(0);
 
@@ -195,11 +193,7 @@ public class CopybookParserTest extends TestCase {
         assertNull(rootB.getType());
 
 
-        File fileC = new File("./target/test-classes/c.input.txt");
-        byte[] bufferC = new byte[(int) fileC.length()];
-        InputStream inputStreamC = new FileInputStream(fileC);
-        DataInputStream dataInputStreamC = new DataInputStream(inputStreamC);
-        dataInputStreamC.readFully(bufferC);
+        byte[] bufferC = Files.readAllBytes(new File("./target/test-classes/c.input.txt").toPath());
         List<Record> resultsC = copybook.parseData(bufferC);
 
         assertEquals(3, resultsC.size());
@@ -230,6 +224,16 @@ public class CopybookParserTest extends TestCase {
         assertEquals("FFF", f3.getValue());
         assertEquals(20, f3.getLevel());
         assertEquals(Type.ALPHA_NUMERIC, f3.getType());
+    }
+
+    public void testWeCanParseCopybookAsString() throws IOException {
+        Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
+        byte[] buffer = Files.readAllBytes(new File("./target/test-classes/b.input.txt").toPath());
+        String data = new String(buffer, StandardCharsets.UTF_8);
+
+        List<Record> resultsString = copybook.parseData(data);
+        List<Record> resultsByte = copybook.parseData(buffer);
+        assertEquals(resultsString.toString(), resultsByte.toString());
     }
 
     public void testRightTrimOfPICXfields() throws FileNotFoundException, IOException {

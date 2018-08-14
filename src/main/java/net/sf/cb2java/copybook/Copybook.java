@@ -141,6 +141,17 @@ public class Copybook extends Group implements Settings {
         return list;
     }
 
+    /**
+     * Creates a list of records with the given data
+     *
+     * @param data The data to create the list for
+     * @return List containing the parsed data
+     */
+    public List<Record> parseData(String data) {
+        byte[] bytes = data.getBytes();
+        return parseData(bytes);
+    }
+
     public String parseDataToJson(InputStream stream) throws IOException {
         List<JsonElement> records = new ArrayList<>();
         for (Record record : parseData(stream)) {
