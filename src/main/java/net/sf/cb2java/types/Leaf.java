@@ -36,7 +36,7 @@ abstract class Leaf extends Element {
      *
      * @return an empty collection
      */
-    public List getChildren() {
+    public List<Element> getChildren() {
         return Collections.EMPTY_LIST;
     }
 }

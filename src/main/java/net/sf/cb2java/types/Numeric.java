@@ -36,11 +36,10 @@ public abstract class Numeric extends Leaf {
     public static final BigDecimal ZERO = new BigDecimal("0");
     public static final Position LEADING = new Position();
     public static final Position TRAILING = new Position();
-
-    private Position position = getSettings().getSignPosition();
     private final int length;
     private final int decimalPlaces;
     private final boolean signed;
+    private Position position = getSettings().getSignPosition();
 
     protected Numeric(String name, int level, int occurs, final String picture) {
         super(name, level, occurs);
@@ -65,20 +64,6 @@ public abstract class Numeric extends Leaf {
     protected Numeric(String name, int length, int decimalPlaces, boolean signed, Position position) {
         this(name, 0, 1, length, decimalPlaces, signed);
         if (position != null) setSignPosition(position);
-    }
-
-//    protected Numeric(int length, int decimalPlaces, boolean signed, Position position)
-//    {
-//        this("", length, decimalPlaces, signed, position);
-//        if (position != null) setSignPosition(position);
-//    }
-
-    public void setSignPosition(Position position) {
-        this.position = position;
-    }
-
-    public Position getSignPosition() {
-        return position;
     }
 
     public static boolean isSigned(String picture) {
@@ -124,15 +109,21 @@ public abstract class Numeric extends Leaf {
         return 0;
     }
 
+    public Position getSignPosition() {
+        return position;
+    }
+
+    public void setSignPosition(Position position) {
+        this.position = position;
+    }
+
     public final boolean signed() {
         return signed;
     }
 
     public abstract int digits();
-//    {
-//        return length();
-//    }
 
+    @Override
     public int getLength() {
         return length;
     }
@@ -142,7 +133,7 @@ public abstract class Numeric extends Leaf {
     }
 
     public DecimalFormat getFormatObject() {
-        StringBuffer buffer = new StringBuffer("#");
+        StringBuilder buffer = new StringBuilder("#");
 
         for (int i = 0; i < digits(); i++) {
             if (i + decimalPlaces() == digits()) {
@@ -159,11 +150,6 @@ public abstract class Numeric extends Leaf {
         return new DecimalFormat(buffer.toString());
     }
 
-//    public void validate(Object data)
-//    {
-//        validate(data, length());
-//    }
-
     /**
      * validates the data with the given decimal (printed) length
      * constraint.  This is useful for types where the length in
@@ -172,8 +158,8 @@ public abstract class Numeric extends Leaf {
      *
      * @param data
      */
-    public void validate(Object data)//, int length)
-    {
+    @Override
+    public void validate(Object data) {
         if (data == null) return;
 
         BigDecimal bigD;
@@ -231,6 +217,7 @@ public abstract class Numeric extends Leaf {
         }
     }
 
+    @Override
     public Data create() {
         if (decimalPlaces() > 0) {
             return new DecimalData(this);

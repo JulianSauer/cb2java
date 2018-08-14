@@ -27,7 +27,6 @@ import java.math.BigInteger;
 
 public class Packed extends Numeric {
     private static final BigInteger TEN = BigInteger.valueOf(10);
-    //    BigInteger ZERO = BigInteger.valueOf(0);
     private final int digits;
     private final int length;
 
@@ -79,7 +78,7 @@ public class Packed extends Numeric {
         type = Type.PACKED;
     }
 
-    protected static final int getLength(int digits) {
+    protected static int getLength(int digits) {
         return (digits / 2) + 1;
     }
 
@@ -88,24 +87,19 @@ public class Packed extends Numeric {
         return length;
     }
 
+    @Override
     public int digits() {
         return digits;
     }
 
+    @Override
     public Data parse(byte[] input) {
-        // for (int i = 0; i < input.length; i++) {
-        // System.out.print(input[i]);
-        // System.out.print(' ');
-        // }
-
-        // System.out.println();
 
         byte lastByte = input[input.length - 1];
         boolean negative = signed() && (lastByte & 0x0F) == 0x0D;
 
         BigInteger bigI = BigInteger.ZERO;
 
-        // (input.length * 2)
         /*
          * the length of the number portion of the packed item is the number of
          * bytes * 2 minus the sign nibble
@@ -113,7 +107,6 @@ public class Packed extends Numeric {
         int numberLength = (length * 2) - 1;
 
         for (int i = 0; i < numberLength; i++) {
-            // System.out.println(input[i / 2]);
             byte current = input[i / 2];
 
             /*
@@ -131,13 +124,7 @@ public class Packed extends Numeric {
              * there are 9 digits, the magnitude at i = 0, is 8, the magnitude
              * at i = 8 is 0
              */
-            // int magnitude = ((length * 2) - i) - 2;
-            // System.out.println(magnitude + " - " + (numberLength - (i + 1)));
             int magnitude = numberLength - (i + 1);
-
-            // System.out.println(i + " " + current + " " + magnitude + " " +
-            // Math.pow(10, magnitude) + " "
-            // + (current * (long) Math.pow(10, magnitude)));
 
             BigInteger temp = TEN.pow(magnitude);
 
@@ -147,11 +134,6 @@ public class Packed extends Numeric {
         if (negative) {
             bigI = bigI.negate();
         }
-
-        // delete
-        // bigI = BigInteger.ZERO;
-
-        // System.out.println(bigI);
 
         Data data = create();
 
@@ -172,6 +154,7 @@ public class Packed extends Numeric {
         }
     }
 
+    @Override
     public byte[] toBytes(Object data) {
         BigInteger bigI;
 
@@ -180,8 +163,6 @@ public class Packed extends Numeric {
         } else {
             bigI = getUnscaled(data);
         }
-
-        // System.out.println(data);
 
         byte signNibble;
 
@@ -196,11 +177,8 @@ public class Packed extends Numeric {
         int numberLength = (length * 2) - 1;
 
         for (int i = numberLength; i > 0; i--) {
-            // for (int i = 0; i < (length * 2) - 1; i++) {
             int value = bigI.mod(TEN).intValue();
             int index = (i - 1) / 2;
-
-            // System.out.println(i + " " + value);
 
             if (i % 2 == 0) {
                 bytes[index] = (byte) (bytes[index] | value);
@@ -214,13 +192,6 @@ public class Packed extends Numeric {
         int signByte = bytes.length - 1;
 
         bytes[signByte] = (byte) (bytes[signByte] | signNibble);
-
-        // for (int i = 0; i < bytes.length; i++) {
-        // System.out.print(bytes[i]);
-        // System.out.print(' ');
-        // }
-        //        
-        // System.out.println();
 
         return bytes;
     }

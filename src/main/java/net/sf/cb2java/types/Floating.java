@@ -33,9 +33,14 @@ import java.math.BigDecimal;
  * @author Matt Watson
  */
 public class Floating extends Leaf {
-    /** the precision of the number */
+    /**
+     * the precision of the number
+     */
     private final Precision precision;
-    /** the conversion object for interpreting the bytes */
+
+    /**
+     * the conversion object for interpreting the bytes
+     */
     private final Conversion conversion;
 
     public Floating(String name, int level, int occurs, Precision precision) {
@@ -75,14 +80,17 @@ public class Floating extends Leaf {
         return super.getValue() == null ? getSettings().getValues().ZEROS : super.getValue();
     }
 
+    @Override
     public int getLength() {
         return precision.bytes;
     }
 
+    @Override
     public Data create() {
         return new FloatingData(this);
     }
 
+    @Override
     public Data parse(byte[] input) {
         FloatingData data = (FloatingData) create();
 
@@ -91,6 +99,7 @@ public class Floating extends Leaf {
         return data;
     }
 
+    @Override
     public void validate(Object data) throws IllegalArgumentException {
         if (!(data instanceof BigDecimal)) {
             throw new IllegalArgumentException("only BigDecimal is supported");
@@ -99,8 +108,8 @@ public class Floating extends Leaf {
         conversion.validate((BigDecimal) data, precision);
     }
 
+    @Override
     public byte[] toBytes(Object data) {
-//        System.out.println("float:" + data);
         return conversion.toBytes((BigDecimal) data, precision);
     }
 

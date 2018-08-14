@@ -33,28 +33,43 @@ import java.util.List;
  * @author James Watson
  */
 public abstract class Element implements SimpleElement {
-    /** the name of the element from the copybook */
+    /**
+     * the name of the element from the copybook
+     */
     private final String name;
-    /** the level of the element from the copybook */
-    private final int level;
-    /** how many times the element occurs in the application data */
-    private final int occurs;
-    /** the absolute position of the where this item starts in data */
-    private int position;
-    /** the instance that represents the data that defines this element */
-    private Settings settings = Settings.DEFAULT;
-    /** the default value of this element */
-    private Value value;
-    /** the parent of this element */
-    private Group parent;
 
+    /**
+     * the level of the element from the copybook
+     */
+    private final int level;
+
+    /**
+     * how many times the element occurs in the application data
+     */
+    private final int occurs;
     protected Type type;
+    /**
+     * the absolute position of the where this item starts in data
+     */
+    private int position;
+    /**
+     * the instance that represents the data that defines this element
+     */
+    private Settings settings = Settings.DEFAULT;
+    /**
+     * the default value of this element
+     */
+    private Value value;
+    /**
+     * the parent of this element
+     */
+    private Group parent;
 
     /**
      * constructor
      *
-     * @param name the element name
-     * @param level the level of the element
+     * @param name   the element name
+     * @param level  the level of the element
      * @param occurs how many times the element occurs
      */
     protected Element(final String name, final int level, final int occurs) {
@@ -74,6 +89,18 @@ public abstract class Element implements SimpleElement {
         return value;
     }
 
+    /**
+     * sets the value for this element that is used to
+     * fill in empty bytes.  The default value a data
+     * element will be filled solely with these bytes.
+     *
+     * @param value
+     */
+    public void setValue(Value value) {
+        this.value = value;
+    }
+
+    @Override
     public abstract List<Element> getChildren();
 
     /**
@@ -141,21 +168,10 @@ public abstract class Element implements SimpleElement {
     }
 
     /**
-     * sets the value for this element that is used to
-     * fill in empty bytes.  The default value a data
-     * element will be filled solely with these bytes.
-     *
-     * @param value
-     */
-    public void setValue(Value value) {
-        this.value = value;
-    }
-
-    /**
      * writes the data as bytes to the given stream
      *
-     * @param stream the outputstream
-     * @param data the data to write as bytes
+     * @param stream the OutputStream
+     * @param data   the data to write as bytes
      * @throws IOException
      */
     public final void write(OutputStream stream, Object data) throws IOException {
@@ -193,17 +209,6 @@ public abstract class Element implements SimpleElement {
     }
 
     /**
-     * Sets the settings for the element and all child elements
-     *
-     * @param settings the new settings
-     */
-    public void setSettings(Settings settings) {
-//        if (this.copybook != null) throw new IllegalStateException("copybook already initialized");
-
-        this.settings = settings;
-    }
-
-    /**
      * returns the parent of this element
      *
      * @return the parent of this element
@@ -234,6 +239,15 @@ public abstract class Element implements SimpleElement {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Sets the settings for the element and all child elements
+     *
+     * @param settings the new settings
+     */
+    public void setSettings(Settings settings) {
+        this.settings = settings;
     }
 
     @Override

@@ -101,6 +101,7 @@ public class SignedSeparate extends Numeric {
         return 0;
     }
 
+    @Override
     public Data parse(byte[] bytes) {
         String s = getString(bytes);
 
@@ -138,6 +139,7 @@ public class SignedSeparate extends Numeric {
         }
     }
 
+    @Override
     public byte[] toBytes(Object data) {
         String s;
         boolean positive;
@@ -155,18 +157,14 @@ public class SignedSeparate extends Numeric {
 
         char sign = positive ? '+' : '-';
 
-//        s = getValue().fillString(s, getLength() - 1, Value.LEFT);
-
         byte[] temp = getValue().fill(getBytes(s), getLength() - 1, Value.LEFT);
 
         byte[] output = new byte[getLength()];
 
         if (getSignPosition() == TRAILING) {
-//            s += sign;
             System.arraycopy(temp, 0, output, 0, temp.length);
             output[output.length - 1] = (byte) sign;
         } else if (getSignPosition() == LEADING) {
-//            s = sign + s;
             System.arraycopy(temp, 0, output, 1, temp.length);
             output[0] = (byte) sign;
         } else {
@@ -176,6 +174,7 @@ public class SignedSeparate extends Numeric {
         return output;
     }
 
+    @Override
     public int digits() {
         return getLength() - 1;
     }

@@ -29,11 +29,20 @@ import java.util.regex.Pattern;
  * @author James Watson
  */
 public class AlphaNumeric extends Characters {
-    /** the original pattern used for debugging */
+
+    /**
+     * the original pattern used for debugging
+     */
     private final String originalPattern;
-    /** the regex pattern for validation */
+
+    /**
+     * the regex pattern for validation
+     */
     private final Pattern pattern;
-    /** the byte length of this element */
+
+    /**
+     * the byte length of this element
+     */
     private final int length;
 
     public AlphaNumeric(String name, int level, int occurs, String pattern) {
@@ -53,11 +62,6 @@ public class AlphaNumeric extends Characters {
 
     public AlphaNumeric(String pattern) {
         this("", 0, 1, pattern);
-    }
-
-    @Override
-    public int getLength() {
-        return length;
     }
 
     private static int parsePattern(String pattern, StringBuffer buffer) {
@@ -97,6 +101,11 @@ public class AlphaNumeric extends Characters {
             default:
                 throw new IllegalArgumentException("character [" + c + "] not allowed.");
         }
+    }
+
+    @Override
+    public int getLength() {
+        return length;
     }
 
     /**

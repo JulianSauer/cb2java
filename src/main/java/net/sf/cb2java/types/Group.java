@@ -23,17 +23,23 @@ import net.sf.cb2java.data.Data;
 import net.sf.cb2java.data.GroupData;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * Type used to represent an element with child elements
  */
 public class Group extends Element {
-    /** the list of children */
-    private final List<Element> children = new ArrayList();
-    /** the wrapper list exposed through getChildren() */
+
+    /**
+     * the list of children
+     */
+    private final List<Element> children = new ArrayList<>();
+
+    /**
+     * the wrapper list exposed through getChildren()
+     */
     private final List<Element> wrapper = Collections.unmodifiableList(children);
 
     public Group(final String name, final int level, final int occurs) {
@@ -57,8 +63,7 @@ public class Group extends Element {
     public int getLength() {
         int length = 0;
 
-        for (Iterator i = children.iterator(); i.hasNext(); ) {
-            Element element = (Element) i.next();
+        for (Element element : children) {
             for (int j = 0; j < element.getOccurs(); j++) {
                 length += element.getLength();
             }
@@ -69,22 +74,21 @@ public class Group extends Element {
 
     @Override
     public String toString() {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         buffer.append(super.toString());
 
-        for (Iterator i = children.iterator(); i.hasNext(); ) {
-            buffer.append(i.next());
-        }
+        for (Element aChildren : children)
+            buffer.append(aChildren);
 
         return buffer.toString();
     }
 
+    @Override
     public Data create() {
-        ArrayList<Data> dataChildren = new ArrayList<Data>();
+        List<Data> dataChildren = new ArrayList<>();
 
-        for (Iterator i = children.iterator(); i.hasNext(); ) {
-            Element element = (Element) i.next();
+        for (Element element : children) {
             for (int j = 0; j < element.getOccurs(); j++) {
                 dataChildren.add(element.create());
             }
@@ -93,25 +97,17 @@ public class Group extends Element {
         return new GroupData(this, dataChildren);
     }
 
+    @Override
     public Data parse(final byte[] bytes) {
-        ArrayList dataChildren = new ArrayList();
+        List<Data> dataChildren = new ArrayList<>();
 
         int pos = 0;
 
-        for (Iterator i = children.iterator(); i.hasNext(); ) {
-            final Element element = (Element) i.next();
+        for (Element element : children) {
             for (int j = 0; j < element.getOccurs(); j++) {
-//                final int p = pos;
                 final int end = pos + element.getLength();
-                //            System.out.println(pos + " " + end + " " + input.length());
-                dataChildren.add(element.parse(sub(bytes, pos, end)));
-//                dataChildren.add(new DataHolder() {
-//                    public Data evaluate()
-//                    {
-//                       return element.parse(sub(bytes, p, end));
-//                    }
-//                });
-
+                byte[] sub = Arrays.copyOfRange(bytes, pos, end);
+                dataChildren.add(element.parse(sub));
                 pos = end;
             }
         }
@@ -119,31 +115,23 @@ public class Group extends Element {
         return new GroupData(this, dataChildren);
     }
 
-    private byte[] sub(byte[] in, int start, int end) {
-        byte[] out = new byte[end - start];
-
-//        System.out.println("sub: " + in.length + ", " + start + ", " + end);
-
-        System.arraycopy(in, start, out, 0, out.length);
-
-        return out;
-    }
-
+    @Override
     public byte[] toBytes(Object data) {
         throw new IllegalArgumentException("cannot read bytes from a group");
     }
 
+    @Override
     public void validate(Object data) {
         throw new IllegalArgumentException("groups do not accept data");
     }
 
     @Override
-    public void setValue(Value value) {
+    public Value getValue() {
         throw new RuntimeException("groups cannot have a value");
     }
 
     @Override
-    public Value getValue() {
+    public void setValue(Value value) {
         throw new RuntimeException("groups cannot have a value");
     }
 }

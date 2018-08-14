@@ -71,7 +71,7 @@ public class Decimal extends Numeric {
      * returns the character for the given char representing a digit
      * in order to create an overpunched digit in a zoned number
      *
-     * @param positive whether the value is positive i.e. false is negative
+     * @param positive  whether the value is positive i.e. false is negative
      * @param overpunch the char to overpunch
      * @return the overpunched char
      */
@@ -181,7 +181,7 @@ public class Decimal extends Numeric {
     /**
      * The digit char for an overpunched char
      *
-     * @param overpunched
+     * @param overpunched overpunched char
      * @return the digit char
      */
     private char getNumber(char overpunched) {
@@ -235,6 +235,7 @@ public class Decimal extends Numeric {
         throw new IllegalArgumentException("invalid char: " + overpunched);
     }
 
+    @Override
     public Data parse(byte[] bytes) {
         String input = getString(bytes).trim();
         String s;
@@ -271,6 +272,7 @@ public class Decimal extends Numeric {
         }
     }
 
+    @Override
     public byte[] toBytes(Object data) {
         if (data == null) {
             return getValue().fill(getLength());
@@ -297,16 +299,9 @@ public class Decimal extends Numeric {
 
         return output;
 
-//        s = getValue().fillString(s, getLength(), Value.LEFT);
-//        
-//        if (getSignPosition() == LEADING) {
-//            return getBytes(getChar(positive, s.charAt(0)) + s.substring(1));
-//        } else {
-//            int last = s.length() - 1;
-//            return getBytes(s.substring(0, last) + getChar(positive, s.charAt(last)));
-//        }
     }
 
+    @Override
     public int digits() {
         return getLength();
     }

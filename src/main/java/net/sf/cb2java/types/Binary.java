@@ -27,7 +27,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * class that represents binary data types 
+ * class that represents binary data types
  *
  * @author James Watson
  */
@@ -70,7 +70,7 @@ public class Binary extends Numeric {
         type = Type.BINARY;
     }
 
-    protected static final int getLength(int digits) {
+    protected static int getLength(int digits) {
         if (1 <= digits && digits <= 4) {
             return 2;
         } else if (5 <= digits && digits <= 9) {
@@ -82,17 +82,35 @@ public class Binary extends Numeric {
         }
     }
 
+    /**
+     * reverses the order of the provided input
+     *
+     * @param input the bytes to reverse
+     * @return the reversed byte
+     */
+    public static byte[] reverse(byte[] input) {
+        final int length = input.length;
+        byte[] output = new byte[length];
+
+        for (int i = 0; i < length; i++) {
+            output[length - (i + 1)] = input[i];
+        }
+
+        return output;
+    }
+
     @Override
     public int getLength() {
         return length;
     }
 
+    @Override
     public int digits() {
         return digits;
     }
 
+    @Override
     public Data parse(byte[] input) {
-//        display(input);
 
         BigInteger bigI = new BigInteger(input);
 
@@ -115,16 +133,7 @@ public class Binary extends Numeric {
         }
     }
 
-//    private static void display(byte[] bytes)
-//    {
-//        for (int i = 0; i < bytes.length; i++) {
-//            byte b = bytes[i];
-//            String s = "0" + Integer.toHexString(0xFF & b);
-//            System.out.print(s.toUpperCase().substring(s.length() - 2));
-//            System.out.print(' ');
-//        }
-//    }
-
+    @Override
     public byte[] toBytes(Object data) {
         BigInteger bigI;
 
@@ -134,30 +143,11 @@ public class Binary extends Numeric {
             bigI = getUnscaled(data);
         }
 
-//        display(copybook.values.LOW_VALUES.fill(bigI.toByteArray(), length(), Value.LEFT));
-
         return getSettings().getValues().LOW_VALUES.fill(bigI.toByteArray(), getLength(), Value.LEFT);
     }
 
     /**
-     * reverses the order of the provided input
-     *
-     * @param input the bytes to reverse
-     * @return the reversed byte
-     */
-    public static byte[] reverse(byte[] input) {
-        final int length = input.length;
-        byte[] output = new byte[length];
-
-        for (int i = 0; i < length; i++) {
-            output[length - (i + 1)] = input[i];
-        }
-
-        return output;
-    }
-
-    /**
-     * Binary extension for native types 
+     * Binary extension for native types
      *
      * @author Matt Watson
      */

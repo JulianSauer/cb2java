@@ -39,14 +39,17 @@ public class Characters extends Leaf {
         type = Type.CHARACTERS;
     }
 
+    @Override
     public int getLength() {
         return length;
     }
 
+    @Override
     public Data create() {
         return new CharData(this);
     }
 
+    @Override
     public Data parse(byte[] bytes) {
         CharData data = (CharData) create();
 
@@ -55,6 +58,7 @@ public class Characters extends Leaf {
         return data;
     }
 
+    @Override
     public void validate(Object data) {
         if (data == null) return;
 
@@ -64,6 +68,7 @@ public class Characters extends Leaf {
             throw new IllegalArgumentException("string value of " + data + " is longer than " + length);
     }
 
+    @Override
     public byte[] toBytes(Object data) {
         byte[] output = data == null ? new byte[0] : getBytes((String) data);
 
