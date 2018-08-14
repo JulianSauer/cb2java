@@ -42,12 +42,14 @@ public class CharData extends ValueData {
     }
 
     /**
-     * TODO - make this a rightTrim()
+     * Data as a right trimmed String
      *
      * @return the trimmed String
      */
     public String getString() {
-        return data == null ? "" : data.trim();
+        if (data == null)
+            return "";
+        return data.replaceAll("\\s+$","");
     }
 
     public Object getValue() {
@@ -88,7 +90,6 @@ public class CharData extends ValueData {
      */
     @Override
     protected Object toPOJO() {
-        // todo make this a right-trim
         return this.getString();
     }
 }

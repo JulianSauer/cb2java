@@ -1,6 +1,7 @@
 package net.sf.cb2java.copybook;
 
 import junit.framework.TestCase;
+import net.sf.cb2java.data.Data;
 import net.sf.cb2java.data.Record;
 import net.sf.cb2java.data.SimpleData;
 import net.sf.cb2java.types.SimpleElement;
@@ -152,7 +153,7 @@ public class CopybookParserTest extends TestCase {
         SimpleData e1 = (SimpleData) sub1.getChildren().get(0);
         assertEquals("E", e1.getName());
         assertEquals(3, e1.getLength());
-        assertEquals("E", e1.getValue());
+        assertEquals(" E", e1.getValue());
         assertEquals(20, e1.getLevel());
         assertEquals(Type.ALPHA_NUMERIC, e1.getType());
 
@@ -239,10 +240,10 @@ public class CopybookParserTest extends TestCase {
     public void testRightTrimOfPICXfields() throws FileNotFoundException, IOException {
         Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
         List<Record> results = copybook.parseData(new FileInputStream(new File("./target/test-classes/b.input.txt")));
-        Record record = results.get(0);
+        List<Data> groupData = results.get(0).getChildren().get(0).getChildren().get(4).getChildren();
 
-        // TODO assertEquals(" E", record.get(0).toString());
-        // TODO assertEquals("FF", record.get(1).toString());
+        assertEquals(" E", groupData.get(0).toString());
+        assertEquals("FF", groupData.get(1).toString());
     }
 
 }
