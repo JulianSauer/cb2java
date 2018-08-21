@@ -74,7 +74,9 @@ public class CharData extends ValueData {
     }
 
     public String toString() {
-        return getString();
+        if (data == null)
+            return "";
+        return data;
     }
 
     public Object translate(String data) {

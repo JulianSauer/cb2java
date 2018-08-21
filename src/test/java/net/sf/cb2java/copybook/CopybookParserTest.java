@@ -242,8 +242,10 @@ public class CopybookParserTest extends TestCase {
         List<Record> results = copybook.parseData(new FileInputStream(new File("./target/test-classes/b.input.txt")));
         List<Data> groupData = results.get(0).getChildren().get(0).getChildren().get(4).getChildren();
 
-        assertEquals(" E", groupData.get(0).toString());
-        assertEquals("FF", groupData.get(1).toString());
+        assertEquals(" E", groupData.get(0).getValue());
+        assertEquals("FF", groupData.get(1).getValue());
+        assertEquals(" E ", groupData.get(0).toString());
+        assertEquals("FF ", groupData.get(1).toString());
     }
 
 }

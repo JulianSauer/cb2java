@@ -76,6 +76,19 @@ public class IntegerData extends NumericData {
     }
 
     /**
+     * Adds leading zeros to match number of digits from the definition
+     */
+    @Override
+    public String toString() {
+        int length = getDefinition().getLength();
+        StringBuilder data = new StringBuilder(getBigInteger().toString());
+        int difference = length - data.length();
+        for (; difference > 0; difference--)
+            data.insert(0, "0");
+        return data.toString();
+    }
+
+    /**
      * Convert the copybook data types into standard Java structures
      * and objects.
      *
