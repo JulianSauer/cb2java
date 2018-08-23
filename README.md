@@ -56,7 +56,24 @@ Build the JAR file using [Maven](http://maven.apache.org/):
 
     mvn install
 
-Include the JAR file in your Java project pom.xml:
+Include the JAR file in your Java project pom.xml directly from Github:
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.juliansauer</groupId>
+            <artifactId>cb2java</artifactId>
+            <version>${Commit Hash}</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+Include the JAR file in your Java project pom.xml from Maven Central (old versions only):
 
     <dependency>
         <groupId>net.sf.cb2java</groupId>
