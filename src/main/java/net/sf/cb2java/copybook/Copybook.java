@@ -24,6 +24,8 @@ import net.sf.cb2java.Settings;
 import net.sf.cb2java.Values;
 import net.sf.cb2java.data.GroupData;
 import net.sf.cb2java.data.Record;
+import net.sf.cb2java.exceptions.DataTypeFormatException;
+import net.sf.cb2java.exceptions.InputLengthException;
 import net.sf.cb2java.types.Element;
 import net.sf.cb2java.types.Group;
 import net.sf.cb2java.types.Numeric;
@@ -105,11 +107,11 @@ public class Copybook extends Group implements Settings {
      * @param data The data to create the list for
      * @return List containing the parsed data
      */
-    public List<Record> parseData(byte[] data) {
+    public List<Record> parseData(byte[] data) throws InputLengthException, DataTypeFormatException {
         int size = getLength();
         if (data.length > size) {
             if (data.length % size != 0)
-                throw new InputMismatchException("Input size of " + data.length + " does not match copybook length of " + size + ". Input was: " + new String(data));
+                throw new InputLengthException("Input size of " + data.length + " does not match copybook length of " + size + ". Input was: " + new String(data));
             List<Record> list = new ArrayList<>();
             for (int i = 0; i < data.length; i += size) {
                 byte[] buffer = Arrays.copyOfRange(data, i, i + size);
@@ -128,7 +130,7 @@ public class Copybook extends Group implements Settings {
      * @return List containing the parsed data
      * @throws IOException
      */
-    public List<Record> parseData(InputStream stream) throws IOException {
+    public List<Record> parseData(InputStream stream) throws IOException, DataTypeFormatException {
         BufferedInputStream bufferedStream = new BufferedInputStream(stream);
         List<Record> list = new ArrayList<>();
 
@@ -147,12 +149,12 @@ public class Copybook extends Group implements Settings {
      * @param data The data to create the list for
      * @return List containing the parsed data
      */
-    public List<Record> parseData(String data) {
+    public List<Record> parseData(String data) throws DataTypeFormatException, InputLengthException {
         byte[] bytes = data.getBytes();
         return parseData(bytes);
     }
 
-    public String parseDataToJson(InputStream stream) throws IOException {
+    public String parseDataToJson(InputStream stream) throws IOException, DataTypeFormatException {
         List<JsonElement> records = new ArrayList<>();
         for (Record record : parseData(stream)) {
             records.add(record.toJson());

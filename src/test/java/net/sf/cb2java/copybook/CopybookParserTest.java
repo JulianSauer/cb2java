@@ -4,10 +4,15 @@ import junit.framework.TestCase;
 import net.sf.cb2java.data.Data;
 import net.sf.cb2java.data.Record;
 import net.sf.cb2java.data.SimpleData;
+import net.sf.cb2java.exceptions.DataTypeFormatException;
+import net.sf.cb2java.exceptions.InputLengthException;
 import net.sf.cb2java.types.SimpleElement;
 import net.sf.cb2java.types.Type;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -102,7 +107,7 @@ public class CopybookParserTest extends TestCase {
      *
      * @throws IOException
      */
-    public void testWeCanParseCopybookData() throws IOException {
+    public void testWeCanParseCopybookData() throws IOException, DataTypeFormatException {
         Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
         List<Record> results = copybook.parseData(new FileInputStream(new File("./target/test-classes/b.input.txt")));
         SimpleData root = results.get(0).getChildren().get(0);
@@ -180,7 +185,7 @@ public class CopybookParserTest extends TestCase {
         assertEquals(Type.ALPHA_NUMERIC, f2.getType());
     }
 
-    public void testWeCanParseCopybookAsByteArray() throws IOException {
+    public void testWeCanParseCopybookAsByteArray() throws IOException, DataTypeFormatException, InputLengthException {
         Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
 
         byte[] bufferB = Files.readAllBytes(new File("./target/test-classes/b.input.txt").toPath());
@@ -227,7 +232,7 @@ public class CopybookParserTest extends TestCase {
         assertEquals(Type.ALPHA_NUMERIC, f3.getType());
     }
 
-    public void testWeCanParseCopybookAsString() throws IOException {
+    public void testWeCanParseCopybookAsString() throws IOException, DataTypeFormatException, InputLengthException {
         Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
         byte[] buffer = Files.readAllBytes(new File("./target/test-classes/b.input.txt").toPath());
         String data = new String(buffer, StandardCharsets.UTF_8);
@@ -237,7 +242,7 @@ public class CopybookParserTest extends TestCase {
         assertEquals(resultsString.toString(), resultsByte.toString());
     }
 
-    public void testRightTrimOfPICXfields() throws FileNotFoundException, IOException {
+    public void testRightTrimOfPICXfields() throws IOException, DataTypeFormatException {
         Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
         List<Record> results = copybook.parseData(new FileInputStream(new File("./target/test-classes/b.input.txt")));
         List<Data> groupData = results.get(0).getChildren().get(0).getChildren().get(4).getChildren();

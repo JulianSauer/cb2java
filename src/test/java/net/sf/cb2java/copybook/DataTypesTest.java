@@ -3,6 +3,7 @@ package net.sf.cb2java.copybook;
 import junit.framework.TestCase;
 import net.sf.cb2java.data.GroupData;
 import net.sf.cb2java.data.Record;
+import net.sf.cb2java.exceptions.DataTypeFormatException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,7 +26,7 @@ public class DataTypesTest extends TestCase {
      *
      * @throws FileNotFoundException
      */
-    public void testWeCanParseAlpha() throws FileNotFoundException, IOException {
+    public void testWeCanParseAlpha() throws IOException, DataTypeFormatException {
         Copybook copybook = CopybookParser.parse("TYPES", new FileInputStream(new File("./src/test/resources/types.copybook")));
         assertEquals(16, copybook.getLength());
         List<Record> records = copybook.parseData(new FileInputStream(new File("./src/test/resources/types.txt")));
@@ -34,7 +35,7 @@ public class DataTypesTest extends TestCase {
         assertEquals(">--------<", record.getChild("TYPES").getChildren().get(0).getChildren().get(1).toString());
     }
 
-    public void testWeCanParseIntegers() throws FileNotFoundException, IOException {
+    public void testWeCanParseIntegers() throws IOException, DataTypeFormatException {
         Copybook copybook = CopybookParser.parse("TYPES", new FileInputStream(new File("./src/test/resources/types.copybook")));
         List<Record> records = copybook.parseData(new FileInputStream(new File("./src/test/resources/types.txt")));
         Record record = records.get(0);
@@ -44,7 +45,7 @@ public class DataTypesTest extends TestCase {
         assertEquals(BigInteger.valueOf(9), integers.getChild("NINE").getValue());
     }
 
-    public void testWeCanParseNegativeIntegers() throws FileNotFoundException, IOException {
+    public void testWeCanParseNegativeIntegers() throws IOException, DataTypeFormatException {
         Copybook copybook = CopybookParser.parse("TYPES", new FileInputStream(new File("./src/test/resources/types.copybook")));
         List<Record> records = copybook.parseData(new FileInputStream(new File("./src/test/resources/types.txt")));
         Record record = records.get(0);

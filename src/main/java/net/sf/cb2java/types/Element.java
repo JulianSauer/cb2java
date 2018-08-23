@@ -21,6 +21,7 @@ package net.sf.cb2java.types;
 import net.sf.cb2java.Settings;
 import net.sf.cb2java.Value;
 import net.sf.cb2java.data.Data;
+import net.sf.cb2java.exceptions.DataTypeFormatException;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -116,7 +117,7 @@ public abstract class Element implements SimpleElement {
      * @param input the input data
      * @return a new empty Data instance from the data supplied
      */
-    public abstract Data parse(byte[] input);
+    public abstract Data parse(byte[] input) throws DataTypeFormatException;
 
     /**
      * validates the data based on this element definition

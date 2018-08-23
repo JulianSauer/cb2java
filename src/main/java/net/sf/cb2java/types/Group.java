@@ -21,6 +21,7 @@ package net.sf.cb2java.types;
 import net.sf.cb2java.Value;
 import net.sf.cb2java.data.Data;
 import net.sf.cb2java.data.GroupData;
+import net.sf.cb2java.exceptions.DataTypeFormatException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,7 +99,7 @@ public class Group extends Element {
     }
 
     @Override
-    public Data parse(final byte[] bytes) {
+    public Data parse(final byte[] bytes) throws DataTypeFormatException {
         List<Data> dataChildren = new ArrayList<>();
 
         int pos = 0;

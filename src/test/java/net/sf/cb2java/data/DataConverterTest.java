@@ -3,6 +3,7 @@ package net.sf.cb2java.data;
 import junit.framework.TestCase;
 import net.sf.cb2java.copybook.Copybook;
 import net.sf.cb2java.copybook.CopybookParser;
+import net.sf.cb2java.exceptions.DataTypeFormatException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class DataConverterTest extends TestCase {
 
-    public void testFileSaving() throws IOException {
+    public void testFileSaving() throws IOException, DataTypeFormatException {
         Copybook copybook = CopybookParser.parse("B", new FileInputStream(new File("./target/test-classes/b.copybook")));
         List<Record> results = copybook.parseData(new FileInputStream(new File("./target/test-classes/b.input.txt")));
 

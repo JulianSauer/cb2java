@@ -22,6 +22,7 @@ import net.sf.cb2java.Value;
 import net.sf.cb2java.data.Data;
 import net.sf.cb2java.data.DecimalData;
 import net.sf.cb2java.data.IntegerData;
+import net.sf.cb2java.exceptions.DataTypeFormatException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -236,7 +237,7 @@ public class Decimal extends Numeric {
     }
 
     @Override
-    public Data parse(byte[] bytes) {
+    public Data parse(byte[] bytes) throws DataTypeFormatException {
         String input = getString(bytes).trim();
         String s;
 
@@ -253,12 +254,30 @@ public class Decimal extends Numeric {
                     + (input.length() > 1 ? input.substring(0, last) : "") + getNumber(c);
         }
 
-        BigInteger big = s == null ? null : new BigInteger(s);
+        BigInteger big;
+        if (s == null) {
+            big = null;
+        } else {
+            try {
+                big = new BigInteger(s);
+            } catch (NumberFormatException e) {
+                throw new DataTypeFormatException("Can't parse value as number: " + s);
+            }
+        }
         Data data = create();
 
         if (data instanceof DecimalData) {
             DecimalData dData = (DecimalData) data;
-            BigDecimal bigD = big == null ? null : new BigDecimal(big, decimalPlaces());
+            BigDecimal bigD;
+            if (s == null) {
+                bigD = null;
+            } else {
+                try {
+                    bigD = new BigDecimal(big, decimalPlaces());
+                } catch (NumberFormatException e) {
+                    throw new DataTypeFormatException("Can't parse value as number: " + s);
+                }
+            }
 
             dData.setValue(bigD);
 
